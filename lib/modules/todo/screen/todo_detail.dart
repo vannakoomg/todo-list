@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:googlemap_ui/modules/checkOut/screens/checkout_screen.dart';
+import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/custom_app.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 
@@ -47,12 +48,18 @@ class TodoDetail extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      height: 200,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blue, width: 0.5),
-                        borderRadius: BorderRadius.circular(8),
+                    GestureDetector(
+                      onTap: () {
+                        openGoogleMap(
+                            context, 11.569500928267594, 104.89301391470991);
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        height: 200,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.blue, width: 0.5),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
                     )
                   ],

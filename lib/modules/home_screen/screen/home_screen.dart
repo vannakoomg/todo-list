@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
 import 'package:googlemap_ui/modules/todo/screen/todo_detail.dart';
 import 'package:googlemap_ui/utils/widgets/custom_cache_network_image.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

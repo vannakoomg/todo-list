@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
+import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/custom_app.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 
@@ -99,7 +100,10 @@ class CheckOutScreen extends StatelessWidget {
             ),
             CustomButtom(
               title: "CHECK OUT",
-              onTap: () {},
+              onTap: () {
+                // this is the RUPP latlong
+                // openGoogleMaps(11.569500928267594, 104.89318557609106);
+              },
               white: MediaQuery.of(context).size.width / 2.7,
             )
           ],

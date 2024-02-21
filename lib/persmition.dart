@@ -7,7 +7,7 @@ import 'package:geolocator/geolocator.dart';
 /// are denied the `Future` will return an error.
 Future<Position> determinePosition() async {
   debugPrint("nice to meet  you ");
-  bool serviceEnabled;
+  // bool serviceEnabled;
   LocationPermission permission;
 
   // Test if location services are enabled.

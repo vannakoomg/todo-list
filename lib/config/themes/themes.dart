@@ -30,7 +30,7 @@ ThemeData lightMode = ThemeData(
       fontFamily: "Siemreap",
     ),
     titleMedium: const TextStyle(
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: FontWeight.w500,
     ),
     titleSmall: TextStyle(
