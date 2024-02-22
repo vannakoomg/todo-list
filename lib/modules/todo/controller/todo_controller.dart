@@ -53,23 +53,31 @@ class TodoController extends GetxController {
                       ),
                       Row(children: [
                         for (var map in availableMaps)
-                          Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              child: Column(children: [
-                                Container(
-                                  clipBehavior: Clip.antiAlias,
-                                  height: 50.0,
-                                  width: 50.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.0),
+                          GestureDetector(
+                            onTap: () {
+                              map.showMarker(
+                                coords: coords,
+                                title: title,
+                              );
+                            },
+                            child: Container(
+                                margin: const EdgeInsets.only(left: 10),
+                                child: Column(children: [
+                                  Container(
+                                    clipBehavior: Clip.antiAlias,
+                                    height: 50.0,
+                                    width: 50.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: SvgPicture.asset(
+                                      map.icon,
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
-                                  child: SvgPicture.asset(
-                                    map.icon,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                Text(map.mapName),
-                              ]))
+                                  Text(map.mapName),
+                                ])),
+                          )
                       ])
                     ])));
           },
