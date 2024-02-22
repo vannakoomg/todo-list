@@ -16,7 +16,7 @@ class CustomButtom extends StatelessWidget {
     required this.onTap,
     this.height = 40,
     this.white = 80,
-    this.colors = Colors.pink,
+    this.colors = const Color.fromARGB(255, 6, 120, 214),
     this.borderColor = Colors.transparent,
     this.disble = false,
     this.fountSize = 16,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:googlemap_ui/modules/checkOut/screens/checkout_screen.dart';
+import 'package:googlemap_ui/modules/todo/controller/todo_controller.dart';
+import 'package:googlemap_ui/modules/todo/screen/simple_google_map.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/custom_app.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
@@ -10,6 +12,7 @@ class TodoDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(TodoController());
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const CustomAppBar(title: "Todo Detail"),
@@ -48,18 +51,17 @@ class TodoDetail extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary),
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     GestureDetector(
                       onTap: () {
-                        openGoogleMap(
-                            context, 11.569500928267594, 104.89301391470991);
+                        controller.showMapDetail(context);
                       },
                       child: Container(
-                        margin: const EdgeInsets.only(top: 10),
+                        color: Colors.white,
                         height: 200,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue, width: 0.5),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                        child: const SimpleGoogleMap(),
                       ),
                     )
                   ],

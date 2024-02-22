@@ -19,16 +19,16 @@ class HomeScreen extends StatelessWidget {
               const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
           child: Column(
             children: [
-              Row(
-                children: [
-                  CustomCachedImageCircle(
-                    image: "",
-                    height: 50,
-                    width: 50,
-                    border: Border.all(color: Colors.black),
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     CustomCachedImageCircle(
+              //       image: "",
+              //       height: 50,
+              //       width: 50,
+              //       border: Border.all(color: Colors.black),
+              //     ),
+              //   ],
+              // ),
               Text(
                 "TODO TODAY",
                 style: Theme.of(context).textTheme.titleSmall,
