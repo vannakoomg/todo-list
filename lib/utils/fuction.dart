@@ -1,7 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 Future unFocus(BuildContext context) async {
@@ -9,6 +12,13 @@ Future unFocus(BuildContext context) async {
   if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
     FocusManager.instance.primaryFocus!.unfocus();
   }
+}
+
+Future<File> pickImage({ImageSource source = ImageSource.gallery}) async {
+  final ImagePicker picker = ImagePicker();
+  var image = await picker.pickImage(source: source);
+  debugPrint("iamge ${image!.path}");
+  return File(image.path);
 }
 
 void openGoogleMap(context, double lat, double lng) async {

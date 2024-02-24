@@ -42,12 +42,17 @@ class MapDetailState extends State<MapDetail> {
                 height: 50,
                 child: Row(
                   children: [
-                    Text(
-                      "close",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(color: AppColor.secondnaryColor),
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Text(
+                        "close",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: AppColor.secondnaryColor),
+                      ),
                     ),
                     const Spacer(),
                     Text(

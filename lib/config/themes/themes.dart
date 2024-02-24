@@ -9,6 +9,12 @@ ThemeData lightMode = ThemeData(
   textSelectionTheme: TextSelectionThemeData(
     selectionColor: AppColor.secondnaryColor.withOpacity(0.6),
   ),
+  checkboxTheme: CheckboxThemeData(
+    side: BorderSide(
+      color: AppColor.secondnaryColor, // Border color when unchecked
+      width: 1.0,
+    ),
+  ),
   colorScheme: ColorScheme.light(
     background: AppColor.backgroundColor,
     primary: Colors.black,
