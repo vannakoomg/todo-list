@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:googlemap_ui/modules/checkOut/screens/checkout_screen.dart';
 import 'package:googlemap_ui/modules/todo/controller/todo_controller.dart';
 import 'package:googlemap_ui/modules/todo/screen/simple_google_map.dart';
-import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/custom_app.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 
@@ -17,8 +16,13 @@ class TodoDetail extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const CustomAppBar(title: "Todo Detail"),
       body: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
+              borderRadius: BorderRadius.circular(10)),
           width: double.infinity,
-          margin: const EdgeInsets.only(bottom: 20, right: 15, left: 15),
+          margin:
+              const EdgeInsets.only(bottom: 20, right: 10, left: 10, top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -58,10 +62,9 @@ class TodoDetail extends StatelessWidget {
                       onTap: () {
                         controller.showMapDetail(context);
                       },
-                      child: Container(
-                        color: Colors.white,
+                      child: const SizedBox(
                         height: 200,
-                        child: const SimpleGoogleMap(),
+                        child: SimpleGoogleMap(),
                       ),
                     )
                   ],

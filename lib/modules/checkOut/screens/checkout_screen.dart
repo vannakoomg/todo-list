@@ -9,6 +9,7 @@ class CheckOutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       appBar: const CustomAppBar(title: "Check Out"),
       body: Container(
         margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
@@ -69,7 +70,7 @@ class CheckOutScreen extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      "Image",
+                      "Photo",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     Container(
@@ -83,17 +84,13 @@ class CheckOutScreen extends StatelessWidget {
                       ),
                       child: Center(
                           child: Text(
-                        "Attament Image",
+                        "Take Photo",
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: Theme.of(context).colorScheme.onPrimary),
                       )),
                     ),
                     const SizedBox(
                       height: 10,
-                    ),
-                    Text(
-                      "Image",
-                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ]),
             ),

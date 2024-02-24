@@ -13,11 +13,11 @@ ThemeData lightMode = ThemeData(
     background: AppColor.backgroundColor,
     primary: Colors.black,
     secondary: Colors.white,
-    tertiary: const Color.fromARGB(255, 27, 27, 27),
+    tertiary: const Color.fromARGB(255, 195, 195, 195),
 
     ///--------------
-    onPrimary: const Color.fromARGB(255, 113, 113, 113),
-    onSecondary: const Color.fromARGB(255, 52, 52, 52),
+    onPrimary: const Color.fromARGB(255, 142, 142, 142),
+    onSecondary: const Color.fromARGB(255, 105, 105, 105),
     onTertiary: const Color.fromARGB(255, 45, 45, 45),
   ),
   useMaterial3: true,

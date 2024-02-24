@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
 
 class CustomBack extends StatelessWidget {
@@ -24,7 +23,7 @@ class CustomBack extends StatelessWidget {
         Platform.isAndroid
             ? Icons.arrow_back_rounded
             : Icons.arrow_back_ios_new_rounded,
-        color: Theme.of(context).colorScheme.tertiary,
+        color: Theme.of(context).colorScheme.primary,
         size: 26,
       ),
     );

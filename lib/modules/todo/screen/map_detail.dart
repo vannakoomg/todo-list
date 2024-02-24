@@ -3,10 +3,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_instance/get_instance.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
 import 'package:googlemap_ui/modules/todo/controller/todo_controller.dart';
+import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 
 class MapDetail extends StatefulWidget {
@@ -32,59 +32,77 @@ class MapDetailState extends State<MapDetail> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-          zoomControlsEnabled: false,
-          myLocationEnabled: true,
-          mapToolbarEnabled: false,
-          myLocationButtonEnabled: false,
-          markers: {
-            Marker(
-              markerId: const MarkerId("userLocation"),
-              position: const LatLng(
-                11.570310254306118,
-                104.89154143839733,
+        SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                height: 50,
+                child: Row(
+                  children: [
+                    Text(
+                      "close",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: AppColor.secondnaryColor),
+                    ),
+                    const Spacer(),
+                    Text(
+                      "Lcation",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const Spacer(),
+                    Text(
+                      "close",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: Colors.transparent),
+                    ),
+                  ],
+                ),
               ),
-              infoWindow: const InfoWindow(
-                title: "Current Location",
+              Expanded(
+                child: GoogleMap(
+                  mapType: MapType.normal,
+                  initialCameraPosition: _kGooglePlex,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  zoomControlsEnabled: false,
+                  myLocationEnabled: true,
+                  mapToolbarEnabled: false,
+                  myLocationButtonEnabled: false,
+                  markers: {
+                    Marker(
+                      markerId: const MarkerId("userLocation"),
+                      position: const LatLng(
+                        11.570310254306118,
+                        104.89154143839733,
+                      ),
+                      infoWindow: const InfoWindow(
+                        title: "Current Location",
+                      ),
+                      icon: BitmapDescriptor.defaultMarkerWithHue(
+                          BitmapDescriptor.hueRose),
+                    ),
+                  },
+                ),
               ),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueRose),
-            ),
-          },
+            ],
+          ),
         ),
         Container(
           margin:
-              const EdgeInsets.only(bottom: 10, top: 20, left: 20, right: 20),
+              const EdgeInsets.only(bottom: 10, top: 60, left: 20, right: 20),
           width: double.infinity,
           child: Column(
             children: [
               Row(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColor.secondnaryColor,
-                        ),
-                        color: AppColor.backgroundColor,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(
-                        Icons.close_rounded,
-                        color: AppColor.secondnaryColor.withOpacity(0.8),
-                      ),
-                    ),
-                  ),
                   const Spacer(),
                   GestureDetector(
                     onTap: () async {
@@ -121,9 +139,9 @@ class MapDetailState extends State<MapDetail> {
               CustomButtom(
                 colors: AppColor.secondnaryColor,
                 white: MediaQuery.sizeOf(context).width * 0.6,
-                title: "Godrirei",
+                title: "Get Directions",
                 onTap: () {
-                  todoController.openGoogleMap(
+                  openGoogleMap(
                       context, 11.568449483008305, 104.89069000146132);
                 },
               ),
