@@ -93,6 +93,7 @@ class _TodoDetailState extends State<TodoDetail> {
                 title: "CHECK IN",
                 onTap: () async {
                   // Get.to(() => const CheckOutScreen());
+
                   LocationPermission permission;
                   permission = await Geolocator.checkPermission();
                   if (permission == LocationPermission.always ||

@@ -41,7 +41,7 @@ class ReportCheckOut extends StatelessWidget {
               height: 10,
             ),
             Text(
-              "Remake:",
+              "Remark:",
               style: Theme.of(context).textTheme.titleMedium!,
             ),
             Text(

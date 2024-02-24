@@ -26,7 +26,7 @@ class CheckOutScreen extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "Remake",
+                              "Remark",
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                             Text(
@@ -63,7 +63,7 @@ class CheckOutScreen extends StatelessWidget {
                                 color: AppColor.secondnaryColor,
                               ),
                             ),
-                            hintText: "Enter remake",
+                            hintText: "Enter remark",
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
