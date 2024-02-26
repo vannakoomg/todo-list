@@ -105,10 +105,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               Get.to(() => const ReportCheckOut());
                             },
                             child: const CustomTodoCard(
-                              distance: "15 km",
+                              address:
+                                  "Russian Federation Blvd (110), Phnom Penh",
                               stuts: 'checkout',
-                              title:
-                                  'dkfjasdjfajsflajsflajsfljsalf;jasjd;lfjsaljfaslkdj',
+                              customer: "Nham Nha",
+                              name: 'Nhanh Nha FIL',
                             ),
                           ),
                           const SizedBox(
@@ -119,10 +120,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               Get.to(() => const TodoDetail());
                             },
                             child: const CustomTodoCard(
+                              customer: "tola",
                               stuts: '',
-                              title:
-                                  'dkfjasdjfajsflajsflajsfljsalf;jasjd;lfjsaljfaslkdj',
-                              distance: "40 km",
+                              name: 'Coffee TTT',
+                              address:
+                                  "1006d Kampuchea Krom Blvd (128), Phnom Penh",
                             ),
                           )
                         ],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:googlemap_ui/config/themes/themes.dart';
-import 'package:googlemap_ui/modules/home_screen/screen/home_screen.dart';
 import 'package:googlemap_ui/modules/login/screen/login_screen.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
 

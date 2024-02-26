@@ -24,7 +24,7 @@ class CustomCachedImageCircle extends StatelessWidget {
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
           borderRadius: borderRadius ?? BorderRadius.circular(400),
-          border: border ?? Border.all(color: AppColor.secondnaryColor),
+          // border: border ?? Border.all(color: AppColor.secondnaryColor),
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.cover,
