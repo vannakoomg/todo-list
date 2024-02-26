@@ -131,7 +131,7 @@ class CheckOutScreen extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "Get Order",
+                              "Have Order",
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                             Checkbox(
