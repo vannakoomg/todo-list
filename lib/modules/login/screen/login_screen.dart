@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:googlemap_ui/modules/home_screen/screen/home_screen.dart';
-import 'package:googlemap_ui/utils/fuction.dart';
+import 'package:googlemap_ui/modules/login/controller/login_controller.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
-import 'package:googlemap_ui/utils/widgets/custom_cache_network_image.dart';
 
 import '../../../config/const/app_colors.dart';
 
@@ -12,6 +10,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginController());
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       body: SafeArea(
@@ -121,8 +120,9 @@ class LoginScreen extends StatelessWidget {
                       white: double.infinity,
                       title: "LOGIN",
                       onTap: () {
-                        unFocus(context);
-                        Get.to(() => const HomeScreen());
+                        controller.login(context);
+                        // unFocus(context);
+                        // Get.to(() => const HomeScreen());
                       })
                 ],
               ),

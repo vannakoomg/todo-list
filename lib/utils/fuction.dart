@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +20,17 @@ Future<File> pickImage({ImageSource source = ImageSource.camera}) async {
   var image = await picker.pickImage(source: source);
   debugPrint("iamge ${image!.path}");
   return File(image.path);
+}
+
+Future<String> getDeviceName(BuildContext context) async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  if (Theme.of(context).platform == TargetPlatform.android) {
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    return androidInfo.model;
+  } else {
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    return iosInfo.name;
+  }
 }
 
 void openGoogleMap(context, double lat, double lng) async {
