@@ -14,10 +14,13 @@ class CheckOutController extends GetxController {
   final photo = File('').obs;
   final isloading = false.obs;
 
-  void takePhoto() async {
-    debugPrint("sdfdsfsdfdsf");
+  Future takePhoto() async {
     photo.value = await pickImage();
-    await compressImage(photo.value);
+    // int oldfile = await photo.value.length();
+    // debugPrint("before ${oldfile / (1024 * 1024)}");
+    photo.value = await compressImage(photo.value);
+    // int newfile = await photo.value.length();
+    // debugPrint("before ${newfile / (1024 * 1024)}");
   }
 
   Future checkOut({

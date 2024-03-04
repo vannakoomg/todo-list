@@ -19,7 +19,7 @@ Future unFocus(BuildContext context) async {
   }
 }
 
-Future<File> pickImage({ImageSource source = ImageSource.gallery}) async {
+Future<File> pickImage({ImageSource source = ImageSource.camera}) async {
   final ImagePicker picker = ImagePicker();
   var image = await picker.pickImage(source: source);
   debugPrint("iamge ${image!.path}");

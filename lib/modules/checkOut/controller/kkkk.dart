@@ -89,25 +89,22 @@ Future checkOutSaleWithOrder({
   }
 }
 
-Future compressImage(File file) async {
+Future<File> compressImage(File file) async {
   int vvv = await file.length();
-  debugPrint("befor $vvv");
+  debugPrint("befor ${vvv / (1024 * 1024)}");
   final dir = Directory.systemTemp;
   final targetPath = "${dir.absolute.path}/temp.jpg";
-  var result = await FlutterImageCompress.compressAndGetFile(
-    file.absolute.path,
-    targetPath,
-
-    minHeight: 1920,
-    minWidth: 1080,
-    // targetPath,
-    quality: 2,
-    // rotate: 180,
-  );
-  vvv = await result!.length();
-
-  print("after $vvv");
-  // print(result!.lengthSync());
-
-  return result;
+  XFile? result;
+  try {
+    result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      targetPath,
+      minHeight: 1920,
+      minWidth: 1080,
+      quality: 50,
+    );
+  } catch (e) {
+    result = XFile("");
+  }
+  return File(result!.path);
 }
