@@ -5,6 +5,7 @@ import 'package:googlemap_ui/modules/checkOut/controller/checkout_controller.dar
 import 'package:googlemap_ui/utils/widgets/custom_app.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 import 'package:googlemap_ui/utils/widgets/custom_loading.dart';
+import 'package:googlemap_ui/utils/widgets/custom_texfiled.dart';
 
 class CheckOutScreen extends StatelessWidget {
   final double lat;
@@ -28,7 +29,8 @@ class CheckOutScreen extends StatelessWidget {
               backgroundColor: Theme.of(context).colorScheme.secondary,
               appBar: const CustomAppBar(title: "Check Out"),
               body: Container(
-                margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                margin: const EdgeInsets.only(
+                    top: 10, left: 10, right: 10, bottom: 10),
                 width: double.infinity,
                 child: Column(
                   children: [
@@ -56,42 +58,12 @@ class CheckOutScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              TextFormField(
+                              CustomTextfiled(
                                 controller: controller.remarkText.value,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                    ),
+                                hintText: "Enter remark",
                                 onChanged: (value) {
                                   controller.remark.value = value;
                                 },
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: AppColor.secondnaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(
-                                      color: AppColor.secondnaryColor,
-                                    ),
-                                  ),
-                                  hintText: "Enter remark",
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimary),
-                                ),
                                 maxLines: 5,
                               ),
                               const SizedBox(
@@ -124,7 +96,7 @@ class CheckOutScreen extends StatelessWidget {
                                           height: 50,
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                                BorderRadius.circular(5),
                                             border: Border.all(
                                               color: AppColor.secondnaryColor,
                                             ),
@@ -143,8 +115,11 @@ class CheckOutScreen extends StatelessWidget {
                                         )
                                       : Container(
                                           padding: const EdgeInsets.all(5),
-                                          height: 140,
-                                          width: 90,
+                                          height:
+                                              MediaQuery.sizeOf(context).width /
+                                                  1.8,
+                                          width:
+                                              MediaQuery.sizeOf(context).width,
                                           decoration: BoxDecoration(
                                             color: Theme.of(context)
                                                 .colorScheme
@@ -153,7 +128,7 @@ class CheckOutScreen extends StatelessWidget {
                                                 color:
                                                     AppColor.secondnaryColor),
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                                BorderRadius.circular(5),
                                             image: DecorationImage(
                                               image: FileImage(
                                                   controller.photo.value),

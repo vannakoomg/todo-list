@@ -25,15 +25,16 @@ class CustomTextfiled extends StatelessWidget {
         onChanged(value);
       },
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.all(10),
         isDense: true,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: AppColor.secondnaryColor,
           ),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(5),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
             color: AppColor.secondnaryColor,
           ),

@@ -23,7 +23,7 @@ class CustomBack extends StatelessWidget {
         Platform.isAndroid
             ? Icons.arrow_back_rounded
             : Icons.arrow_back_ios_new_rounded,
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.secondary,
         size: 26,
       ),
     );

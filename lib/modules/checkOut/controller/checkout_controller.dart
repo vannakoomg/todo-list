@@ -7,20 +7,28 @@ import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart
 import 'package:googlemap_ui/utils/fuction.dart';
 
 class CheckOutController extends GetxController {
+  final oldRemark = "".obs;
+  final oldHasOrder = false.obs;
   final homeController = Get.put(HomeController());
   final hasOrder = false.obs;
   final remark = ''.obs;
   final remarkText = TextEditingController().obs;
   final photo = File('').obs;
   final isloading = false.obs;
+  bool validateUpdate() {
+    if ((oldRemark.value == remark.value &&
+            oldHasOrder.value == hasOrder.value &&
+            photo.value.path == "") ||
+        remark.value == "") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   Future takePhoto() async {
     photo.value = await pickImage();
-    // int oldfile = await photo.value.length();
-    // debugPrint("before ${oldfile / (1024 * 1024)}");
     photo.value = await compressImage(photo.value);
-    // int newfile = await photo.value.length();
-    // debugPrint("before ${newfile / (1024 * 1024)}");
   }
 
   Future checkOut({
@@ -39,9 +47,10 @@ class CheckOutController extends GetxController {
           routeId: routeId,
           file: photo.value,
           remark: remark.value,
-        );
-        homeController.saleData.value.data![homeController.indexOfSale].status =
-            "check-out-with-order";
+        ).then((value) {
+          homeController.saleData.value.data![homeController.indexOfSale]
+              .status = "check-out-with-order";
+        });
       } catch (value) {
         debugPrint("you on cahlkaflkasjflksadjlf");
       }

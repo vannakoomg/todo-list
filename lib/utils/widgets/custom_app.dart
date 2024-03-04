@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:googlemap_ui/config/const/app_colors.dart';
 import 'package:googlemap_ui/utils/widgets/custom_back.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget action;
   final Widget leading;
+  final bool isleading;
   const CustomAppBar(
       {super.key,
       this.action = const SizedBox(),
       required this.title,
+      this.isleading = true,
       this.leading = const CustomBack()});
 
   @override
@@ -17,15 +20,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: const Size.fromHeight(60.0), // Adjust the height as needed
       child: AppBar(
         leadingWidth: 40,
-        leading: leading,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        leading: isleading == true ? leading : const SizedBox(),
+        backgroundColor: AppColor.secondnaryColor,
         centerTitle: true,
         title: Text(
           title,
           style: Theme.of(context)
               .textTheme
               .titleLarge!
-              .copyWith(color: Theme.of(context).colorScheme.primary),
+              .copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
         actions: [action],
       ),

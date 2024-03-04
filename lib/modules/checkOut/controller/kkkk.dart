@@ -74,7 +74,7 @@ Future checkOutSaleWithOrder({
   try {
     Dio dio = Dio();
     await dio
-        .post("$baseUrl/ppm_sale/api/check_out_with_order/activity",
+        .post("$baseUrl/ppm_sale/api/check_out_with_oer/activity",
             data: formData,
             options: Options(headers: {
               'Content-Type': 'application/json',

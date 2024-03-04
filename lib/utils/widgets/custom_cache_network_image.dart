@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../config/const/app_colors.dart';
+
 class CustomCachedImageCircle extends StatelessWidget {
   final String image;
   final double height;
@@ -22,8 +24,8 @@ class CustomCachedImageCircle extends StatelessWidget {
       imageUrl: image,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
-          borderRadius: borderRadius ?? BorderRadius.circular(400),
-          // border: border ?? Border.all(color: AppColor.secondnaryColor),
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: AppColor.secondnaryColor),
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.cover,
@@ -34,8 +36,8 @@ class CustomCachedImageCircle extends StatelessWidget {
       width: width,
       placeholder: (context, url) => Container(
         decoration: BoxDecoration(
-          borderRadius: borderRadius ?? BorderRadius.circular(400),
-          border: border ?? Border.all(),
+          borderRadius: borderRadius ?? BorderRadius.circular(5),
+          border: Border.all(color: AppColor.secondnaryColor),
         ),
       ),
       errorWidget: (context, url, error) => const Icon(Icons.error),

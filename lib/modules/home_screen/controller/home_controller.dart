@@ -6,6 +6,7 @@ import 'package:googlemap_ui/modules/home_screen/screen/report_checkout.dart';
 import 'package:googlemap_ui/modules/todo/screen/todo_detail.dart';
 import 'package:intl/intl.dart';
 
+import '../../../helpers/local_storage.dart';
 import '../model/sale_model.dart';
 
 class HomeController extends GetxController {
@@ -41,20 +42,20 @@ class HomeController extends GetxController {
   final saleData = SaleModel().obs;
 
   Future fetchSale() async {
-    debugPrint("dsfdsfdsf");
+    final userId = await LocalStorage.getIntValue(key: "user_id");
+
     isloading.value = true;
     ApiBaseHelper.apiBaseHelper
         .onNetworkRequesting(
-      url: "/ppm_sale/api/sale_route_list?user_id=2",
+      url: "/ppm_sale/api/sale_route_list?user_id=$userId",
       methode: METHODE.post,
       isAuthorize: true,
     )
         .then((value) {
       saleData.value = SaleModel.fromJson(value);
       isloading.value = false;
-      debugPrint("value $value");
     }).onError((error, stackTrace) {
-      debugPrint("error");
+      isloading.value = false;
     });
   }
 
@@ -83,16 +84,16 @@ class HomeController extends GetxController {
     //         hasOrder: hasOrder,
     //       ));
     // } else if (status == "check-in") {
-    //   Get.to(() => ReportCheckOut(
-    //         routeId: routeId,
-    //         lat: lat,
-    //         long: lng,
-    //         checkInId: checkInId,
-    //         date: date,
-    //         remark: remark,
-    //         urlImage: urlImage,
-    //         hasOrder: hasOrder,
-    //       ));
+    // Get.to(() => ReportCheckOut(
+    //       routeId: routeId,
+    //       lat: lat,
+    //       long: lng,
+    //       checkInId: checkInId,
+    //       date: date,
+    //       remark: remark,
+    //       urlImage: urlImage,
+    //       hasOrder: hasOrder,
+    //     ));
 
     // } else {
     //   Get.to(() => ReportCheckOut(
