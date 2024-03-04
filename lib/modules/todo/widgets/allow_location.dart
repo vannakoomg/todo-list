@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
 
 Future<void> allowlocaiton(BuildContext context) async {
@@ -20,7 +21,8 @@ Future<void> allowlocaiton(BuildContext context) async {
                 child: Center(
                   child: Text('This app need you allow the locaiton',
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.onSecondary)),
+                          color: Theme.of(context).colorScheme.onSecondary,
+                          fontSize: 16)),
                 ),
               ),
             ],
@@ -39,11 +41,12 @@ Future<void> allowlocaiton(BuildContext context) async {
           ),
           GestureDetector(
             onTap: () {
+              Get.back();
               Geolocator.openAppSettings();
             },
             child: Container(
               margin: const EdgeInsets.only(right: 10),
-              width: 40,
+              width: 50,
               height: 25,
               decoration: BoxDecoration(
                   color: AppColor.secondnaryColor,

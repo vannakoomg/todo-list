@@ -1,36 +1,17 @@
-class SaleListModel {
-  String? jsonrpc;
-  Result? result;
-
-  SaleListModel({this.jsonrpc, this.result});
-
-  SaleListModel.fromJson(Map<String, dynamic> json) {
-    jsonrpc = json['jsonrpc'];
-    result = json['result'] != null ? Result.fromJson(json['result']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['jsonrpc'] = jsonrpc;
-    if (result != null) {
-      data['result'] = result!.toJson();
-    }
-    return data;
-  }
-}
-
-class Result {
+class SaleModel {
   List<Data>? data;
+  int? status;
 
-  Result({this.data});
+  SaleModel({this.data, this.status});
 
-  Result.fromJson(Map<String, dynamic> json) {
+  SaleModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
         data!.add(Data.fromJson(v));
       });
     }
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -38,6 +19,7 @@ class Result {
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
+    data['status'] = status;
     return data;
   }
 }
@@ -52,6 +34,8 @@ class Data {
   bool? thuDay;
   bool? friDay;
   bool? satDay;
+  String? status;
+  int? checkInId;
   SaleManId? saleManId;
   Customer? customer;
 
@@ -65,6 +49,8 @@ class Data {
       this.thuDay,
       this.friDay,
       this.satDay,
+      this.status,
+      this.checkInId,
       this.saleManId,
       this.customer});
 
@@ -78,6 +64,8 @@ class Data {
     thuDay = json['thu_day'];
     friDay = json['fri_day'];
     satDay = json['sat_day'];
+    status = json['status'];
+    checkInId = json['check_in_id'];
     saleManId = json['sale_man_id'] != null
         ? SaleManId.fromJson(json['sale_man_id'])
         : null;
@@ -96,6 +84,8 @@ class Data {
     data['thu_day'] = thuDay;
     data['fri_day'] = friDay;
     data['sat_day'] = satDay;
+    data['status'] = status;
+    data['check_in_id'] = checkInId;
     if (saleManId != null) {
       data['sale_man_id'] = saleManId!.toJson();
     }
@@ -109,7 +99,7 @@ class Data {
 class SaleManId {
   int? id;
   String? name;
-  String? phone;
+  bool? phone;
   Leader? leader;
 
   SaleManId({this.id, this.name, this.phone, this.leader});

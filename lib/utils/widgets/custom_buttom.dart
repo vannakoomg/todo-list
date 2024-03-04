@@ -9,6 +9,7 @@ class CustomButtom extends StatelessWidget {
   final double height;
   final double white;
   final Color colors;
+  final Color textColors;
   final Color borderColor;
   const CustomButtom({
     super.key,
@@ -16,6 +17,7 @@ class CustomButtom extends StatelessWidget {
     required this.onTap,
     this.height = 40,
     this.white = 80,
+    this.textColors = Colors.white,
     this.colors = const Color.fromARGB(255, 6, 120, 214),
     this.borderColor = Colors.transparent,
     this.disble = false,
@@ -31,11 +33,10 @@ class CustomButtom extends StatelessWidget {
       child: AnimatedContainer(
         width: white,
         decoration: BoxDecoration(
-          color: disble == false ? colors : AppColor.textfourth,
+          color: disble == false ? colors : AppColor.textThird,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: borderColor,
-            width: 0.5,
           ),
         ),
         height: height,
@@ -47,7 +48,7 @@ class CustomButtom extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge!
-                .copyWith(color: Colors.white, fontSize: fountSize),
+                .copyWith(color: textColors, fontSize: fountSize),
           ),
         ),
       ),

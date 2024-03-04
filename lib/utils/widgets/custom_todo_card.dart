@@ -36,7 +36,13 @@ class CustomTodoCard extends StatelessWidget {
           children: [
             Container(
               width: 9,
-              color: stuts == "" ? AppColor.dangerColor : AppColor.successColor,
+              color: stuts == "todo"
+                  ? Colors.grey
+                  : stuts == "check-in"
+                      ? Colors.blue
+                      : stuts == "check-out"
+                          ? const Color.fromARGB(255, 237, 156, 34)
+                          : AppColor.successColor,
             ),
             const SizedBox(
               width: 10,
@@ -118,7 +124,13 @@ class CustomTodoCard extends StatelessWidget {
             ),
             Icon(
               Icons.keyboard_double_arrow_right,
-              color: stuts == "" ? AppColor.dangerColor : AppColor.successColor,
+              color: stuts == "todo"
+                  ? Colors.grey
+                  : stuts == "check-in"
+                      ? Colors.blue
+                      : stuts == "check-out"
+                          ? const Color.fromARGB(255, 237, 156, 34)
+                          : AppColor.successColor,
             ),
             const SizedBox(
               width: 5,

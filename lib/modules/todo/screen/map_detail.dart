@@ -10,7 +10,9 @@ import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 
 class MapDetail extends StatefulWidget {
-  const MapDetail({super.key});
+  final double lat;
+  final double long;
+  const MapDetail({super.key, required this.lat, required this.long});
 
   @override
   State<MapDetail> createState() => MapDetailState();
@@ -21,13 +23,6 @@ class MapDetailState extends State<MapDetail> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(
-      11.570310254306118,
-      104.89154143839733,
-    ),
-    zoom: 14.4746,
-  );
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -73,7 +68,8 @@ class MapDetailState extends State<MapDetail> {
               Expanded(
                 child: GoogleMap(
                   mapType: MapType.normal,
-                  initialCameraPosition: _kGooglePlex,
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(widget.lat, widget.long), zoom: 14.23),
                   onMapCreated: (GoogleMapController controller) {
                     _controller.complete(controller);
                   },

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
 import 'local_storage.dart';
 import 'url.dart';
 
@@ -23,8 +22,6 @@ class ApiBaseHelper {
   static final ApiBaseHelper apiBaseHelper = ApiBaseHelper._internal();
   ApiBaseHelper._internal();
   static ApiBaseHelper get obj => apiBaseHelper;
-
-  // String? baseurl = '';
   Future<dynamic> onNetworkRequesting({
     required String url,
     Map<String, String>? header,
@@ -58,7 +55,7 @@ class ApiBaseHelper {
               data: body ?? {});
           return _returnResponse(response);
         case METHODE.delete:
-          final response = await dio.put(fullUrl,
+          final response = await dio.delete(fullUrl,
               options: Options(headers: header ?? headerDefault),
               data: body ?? {});
           return _returnResponse(response);

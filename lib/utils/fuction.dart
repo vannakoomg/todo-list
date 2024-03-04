@@ -1,11 +1,15 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, avoid_print
 
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 Future unFocus(BuildContext context) async {
@@ -15,7 +19,7 @@ Future unFocus(BuildContext context) async {
   }
 }
 
-Future<File> pickImage({ImageSource source = ImageSource.camera}) async {
+Future<File> pickImage({ImageSource source = ImageSource.gallery}) async {
   final ImagePicker picker = ImagePicker();
   var image = await picker.pickImage(source: source);
   debugPrint("iamge ${image!.path}");
@@ -93,4 +97,39 @@ void openGoogleMap(context, double lat, double lng) async {
   } catch (e) {
     debugPrint("$e");
   }
+}
+
+Future<void> requestPermission() async {
+  LocationPermission permission;
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.always ||
+      permission == LocationPermission.whileInUse) {
+  } else {
+    Location location = Location();
+    var permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        debugPrint('Location permission denied');
+      }
+    }
+  }
+}
+
+void kkkkk() {
+  final key = encrypt.Key.fromUtf8('my 32 length key................');
+  final iv = encrypt.IV.fromLength(16);
+
+  final encrypter = encrypt.Encrypter(encrypt.AES(key));
+
+  // Text to be encrypted
+  String originalText =
+      "Hello, sad;kfskdajf;kadsjflkadsjf;lsadjf;ladsjf;ljsa;lfads;la;dslf;ladsf;la!";
+
+  final encrypted = encrypter.encrypt(originalText, iv: iv);
+  print('Encrypted: ${encrypted.base64}');
+
+  // Decrypting
+  final decrypted = encrypter.decrypt(encrypted, iv: iv);
+  print('Decrypted: $decrypted');
 }

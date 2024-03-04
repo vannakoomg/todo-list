@@ -1,11 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
+import 'package:googlemap_ui/modules/checkOut/controller/checkout_controller.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/custom_app.dart';
+import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 import 'package:googlemap_ui/utils/widgets/custom_cache_network_image.dart';
+import 'package:googlemap_ui/utils/widgets/custom_texfiled.dart';
 
-class ReportCheckOut extends StatelessWidget {
-  const ReportCheckOut({super.key});
+class ReportCheckOut extends StatefulWidget {
+  final String date;
+  final String remark;
+  final bool hasOrder;
+  final double lat;
+  final double long;
+  final String urlImage;
+  final int routeId;
+  final int checkInId;
+  const ReportCheckOut({
+    super.key,
+    required this.date,
+    required this.remark,
+    required this.hasOrder,
+    required this.lat,
+    required this.long,
+    required this.urlImage,
+    required this.routeId,
+    required this.checkInId,
+  });
+
+  @override
+  State<ReportCheckOut> createState() => _ReportCheckOutState();
+}
+
+class _ReportCheckOutState extends State<ReportCheckOut> {
+  final controller = CheckOutController();
+  @override
+  void initState() {
+    controller.hasOrder.value = widget.hasOrder;
+    controller.remarkText.value.text = widget.remark;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,96 +50,119 @@ class ReportCheckOut extends StatelessWidget {
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          // border: Border.all(
-          //   color: AppColor.secondnaryColor,
-          //   width: 0.5,
-          // ),
           color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(10),
         ),
-        margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+        margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Date:",
-              style: Theme.of(context).textTheme.titleMedium!,
-            ),
-            Text(
-              "12/12/2024",
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Remark:",
-              style: Theme.of(context).textTheme.titleMedium!,
-            ),
-            Text(
-              "12/12/sadkjfkldajsdkdsakdsalkjksaj;lkdjlkdslkjsafdsa;lkjdsal;kjdsalkjdsa;lklkdsajdsakjsalkfdjaskdjfsadjfadsjasdkfjsajdjf2024",
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-            ),
-            Row(
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Get Order",
-                  style: Theme.of(context).textTheme.titleSmall,
+                  "Date:",
+                  style: Theme.of(context).textTheme.titleSmall!,
                 ),
-                Checkbox(
-                  value: true,
-                  activeColor: AppColor.successColor,
-                  checkColor: Colors.white,
-                  onChanged: (bool? value) {
-                    // controller.ischeck.value = !controller.ischeck.value;
+                Text(
+                  widget.date,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Remark",
+                  style: Theme.of(context).textTheme.titleSmall!,
+                ),
+                CustomTextfiled(
+                  controller: controller.remarkText.value,
+                  hintText: "Enter Remark",
+                  onChanged: (value) {
+                    controller.remark.value = value;
                   },
+                  maxLines: 5,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Has Order",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Checkbox(
+                      value: controller.hasOrder.value,
+                      activeColor: AppColor.successColor,
+                      checkColor: Colors.white,
+                      onChanged: (bool? value) {
+                        controller.hasOrder.value = value!;
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                CustomCachedImageCircle(
+                  borderRadius: BorderRadius.circular(0),
+                  height: 200,
+                  width: 400,
+                  image: widget.urlImage,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "${widget.lat}, ${widget.long}",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        openGoogleMap(context, widget.lat, widget.long);
+                      },
+                      child: Text(
+                        "View Map",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: AppColor.secondnaryColor),
+                      ),
+                    ),
+                  ],
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            CustomCachedImageCircle(
-              borderRadius: BorderRadius.circular(0),
-              height: 200,
-              width: 400,
-              image:
-                  "https://scontent.fpnh24-1.fna.fbcdn.net/v/t39.30808-6/386646496_880697763424738_311833906648663546_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=3635dc&_nc_eui2=AeFpnw8CeKvgWHZx7iHDfb1fSrticfRa7l5Ku2Jx9FruXvvzI7lxO2SE7QREmxr5eYxJ78eLMJ8EMP1iNHNtRfp6&_nc_ohc=xAi-ZWnGqDsAX_VnXSy&_nc_ht=scontent.fpnh24-1.fna&oh=00_AfCAiN_YYqDKSnVGEeZg0p2-4B6mNu_zP_57aA3iERBJqQ&oe=65DCAC60",
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    "11.569569289012044, 104.89129363516827",
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).colorScheme.onSecondary,
-                        ),
-                    overflow: TextOverflow.ellipsis,
+            )),
+            Container(
+              margin: const EdgeInsets.only(bottom: 10, top: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CustomButtom(
+                      textColors: AppColor.secondnaryColor,
+                      title: "UPDATE",
+                      onTap: () {},
+                      colors: Colors.transparent,
+                      borderColor: AppColor.secondnaryColor,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    openGoogleMap(
-                        context, 11.568449483008305, 104.89069000146132);
-                  },
-                  child: Text(
-                    "View Map",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: AppColor.secondnaryColor),
+                  const SizedBox(
+                    width: 10,
                   ),
-                ),
-              ],
-            )
+                  Expanded(
+                      child: CustomButtom(title: "CHECK IN", onTap: () {})),
+                ],
+              ),
+            ),
           ],
         ),
       ),

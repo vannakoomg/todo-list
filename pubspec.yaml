@@ -48,6 +48,12 @@ dependencies:
   dio: ^5.4.0
   flutter_dotenv: ^5.0.2
   device_info_plus: ^9.1.2
+  crypto: ^3.0.3
+  encrypt: ^5.0.3
+  geocoding: ^2.0.2
+  http_parser: ^4.0.0
+  flutter_native_splash: ^2.3.10
+  flutter_image_compress: ^2.1.0
 
 
 
@@ -61,6 +67,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+flutter_native_splash:
+  android: true
+  ios: true
+  color: "#026ECD"
+  image: images/splash_screen.png
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,6 +89,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - .env
+    - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
