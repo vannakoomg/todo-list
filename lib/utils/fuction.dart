@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, avoid_print
+// ignore_for_file: deprecated_member_use, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 import 'dart:io';
@@ -12,6 +12,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:map_launcher/map_launcher.dart';
+
+import '../modules/todo/widgets/allow_location.dart';
 
 Future unFocus(BuildContext context) async {
   final FocusScopeNode currentFocus = FocusScope.of(context);
@@ -118,6 +120,16 @@ Future<void> requestPermission() async {
         debugPrint('Location permission denied');
       }
     }
+  }
+}
+
+Future checkPermission(BuildContext context) async {
+  LocationPermission permission;
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.always ||
+      permission == LocationPermission.whileInUse) {
+  } else {
+    await allowlocaiton(context);
   }
 }
 

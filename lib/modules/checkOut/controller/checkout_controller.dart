@@ -1,10 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:googlemap_ui/config/const/app_colors.dart';
 import 'package:googlemap_ui/modules/checkOut/controller/kkkk.dart';
 import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
+
+import '../../../utils/single_ton.dart';
 
 class CheckOutController extends GetxController {
   final oldRemark = "".obs;
@@ -26,22 +32,28 @@ class CheckOutController extends GetxController {
     }
   }
 
-  Future takePhoto() async {
+  Future takePhoto(BuildContext context) async {
+    await checkPermission(context);
     photo.value = await pickImage();
     photo.value = await compressImage(photo.value);
   }
 
   Future checkOut({
-    required double lat,
-    required double long,
     required int checkInId,
+    required BuildContext context,
   }) async {
+    unFocus(context);
+    await checkPermission(context);
+    Position current = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+    debugPrint("location ${current.latitude}");
     isloading.value = true;
     if (hasOrder.value) {
       try {
         await checkOutSaleWithOrder(
-          lat: lat,
-          long: long,
+          lat: current.latitude,
+          long: current.longitude,
           checkInId: checkInId,
           file: photo.value,
           remark: remark.value,
@@ -54,21 +66,49 @@ class CheckOutController extends GetxController {
       }
     } else {
       await checkOutSale(
-        lat: lat,
-        long: long,
+        lat: current.latitude,
+        long: current.longitude,
         checkInId: checkInId,
         file: photo.value,
         remark: remark.value,
-      );
-      homeController.saleData.value.data![homeController.indexOfSale].status =
-          "check-out";
+      ).then((value) {
+        homeController.saleData.value.data![homeController.indexOfSale].status =
+            "check-out";
+      });
     }
-    homeController.saleData.refresh();
-    remark.value = '';
-    remarkText.value.text = '';
-    photo.value = File('');
-    hasOrder.value = false;
+    if (Singleton.obj.isCheckOut.value == true) {
+      homeController.saleData.refresh();
+      remark.value = '';
+      remarkText.value.text = '';
+      photo.value = File('');
+      hasOrder.value = false;
+      Get.back();
+    } else {
+      Get.defaultDialog(
+          titlePadding: const EdgeInsets.only(top: 20),
+          contentPadding:
+              const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+          title: "OOPS !",
+          titleStyle: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: AppColor.dangerColor),
+          content: Column(
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                "SOMETHING WENT WRONG PLEASE TRY AGAIN",
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: Theme.of(context).colorScheme.onSecondary),
+              ),
+            ],
+          ));
+    }
     isloading.value = false;
-    Get.back();
   }
 }

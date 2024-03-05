@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:googlemap_ui/config/const/app_colors.dart';
+import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 
 Future<void> allowlocaiton(BuildContext context) async {
   return showDialog(
@@ -12,54 +12,33 @@ Future<void> allowlocaiton(BuildContext context) async {
         actionsPadding: EdgeInsets.zero,
         backgroundColor: Colors.white,
         content: Container(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-          height: 100,
+          padding:
+              const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+          height: 150,
           child: Column(
             children: [
               Text('Location', style: Theme.of(context).textTheme.titleMedium),
               Expanded(
                 child: Center(
-                  child: Text('This app need you allow the locaiton',
+                  child: Text('This app need you allow the locaiton!',
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.onSecondary,
-                          fontSize: 16)),
+                            color: Theme.of(context).colorScheme.onSecondary,
+                          )),
                 ),
               ),
+              CustomButtom(
+                title: "OK",
+                height: 30,
+                white: 50,
+                onTap: () {
+                  Get.back();
+                  Geolocator.openAppSettings();
+                },
+              )
             ],
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Close',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall!
-                    .copyWith(color: AppColor.secondnaryColor)),
-          ),
-          GestureDetector(
-            onTap: () {
-              Get.back();
-              Geolocator.openAppSettings();
-            },
-            child: Container(
-              margin: const EdgeInsets.only(right: 10),
-              width: 50,
-              height: 25,
-              decoration: BoxDecoration(
-                  color: AppColor.secondnaryColor,
-                  borderRadius: BorderRadius.circular(50)),
-              child: Center(
-                child: Text('OK',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
-                        )),
-              ),
-            ),
-          ),
-        ],
+        actions: const [],
       );
     },
   );

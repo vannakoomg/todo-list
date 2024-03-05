@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:googlemap_ui/modules/login/screen/login_screen.dart';
 import 'local_storage.dart';
 import 'url.dart';
 
@@ -70,8 +72,8 @@ class ApiBaseHelper {
     }
   }
 
-  dynamic _returnResponse(Response response) {
-    debugPrint("code ${response.statusCode}");
+  dynamic _returnResponse(Response response) async {
+    debugPrint("statusCode ${response.statusCode}");
     switch (response.statusCode) {
       case 200:
         return response.data;
@@ -86,10 +88,13 @@ class ApiBaseHelper {
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));
       case 401:
+        await LocalStorage.storeData(key: "access_token", value: "");
+        Get.to(const LoginScreen());
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));
-
       case 403:
+        await LocalStorage.storeData(key: "access_token", value: "");
+        Get.to(const LoginScreen());
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));
       case 422:

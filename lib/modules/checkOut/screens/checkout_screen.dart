@@ -85,7 +85,7 @@ class CheckOutScreen extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  controller.takePhoto();
+                                  controller.takePhoto(context);
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.only(top: 10),
@@ -139,7 +139,7 @@ class CheckOutScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    "Have Order",
+                                    "Has Order",
                                     style:
                                         Theme.of(context).textTheme.titleSmall,
                                   ),
@@ -169,8 +169,7 @@ class CheckOutScreen extends StatelessWidget {
                       onTap: () {
                         controller.checkOut(
                           checkInId: checkInId,
-                          lat: lat,
-                          long: long,
+                          context: context,
                         );
                       },
                       white: 130,

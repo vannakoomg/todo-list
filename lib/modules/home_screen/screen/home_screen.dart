@@ -22,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     requestPermission();
-    // controller.checkAvailabel();
     controller.fetchSale();
+    controller.getCurrentLocation();
     super.initState();
   }
 
@@ -36,11 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
               title: "Sale Activity",
               isleading: false,
             ),
-            backgroundColor: AppColor.secondnaryColor,
+            backgroundColor: AppColor.primaryColor,
             body: SafeArea(
               child: Container(
                 color: Theme.of(context).colorScheme.secondary,
-                margin: const EdgeInsets.only(top: 10),
                 width: double.infinity,
                 height: double.infinity,
                 child: Column(
@@ -71,19 +70,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                               controller.indexOfSale = index;
                                               return GestureDetector(
                                                 onTap: () async {
+                                                  double photoLat = controller
+                                                              .saleData
+                                                              .value
+                                                              .data![index]
+                                                              .photoLat ==
+                                                          ""
+                                                      ? 0
+                                                      : double.parse(controller
+                                                          .saleData
+                                                          .value
+                                                          .data![index]
+                                                          .photoLat!);
+                                                  double photoLong = controller
+                                                              .saleData
+                                                              .value
+                                                              .data![index]
+                                                              .photoLong ==
+                                                          ""
+                                                      ? 0
+                                                      : double.parse(controller
+                                                          .saleData
+                                                          .value
+                                                          .data![index]
+                                                          .photoLong!);
                                                   controller.ontapSaleActivity(
-                                                      photolong: double.parse(
-                                                          controller
-                                                              .saleData
-                                                              .value
-                                                              .data![index]
-                                                              .photoLong!),
-                                                      photoLat: double.parse(
-                                                          controller
-                                                              .saleData
-                                                              .value
-                                                              .data![index]
-                                                              .photoLat!),
+                                                      photolong: photoLong,
+                                                      photoLat: photoLat,
                                                       date:
                                                           "${controller.saleData.value.data![index].checkOutDate}",
                                                       hasOrder: controller
@@ -95,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       remark:
                                                           "${controller.saleData.value.data![index].remark}",
                                                       urlImage:
-                                                          "https://c8.alamy.com/comp/2JMFP60/fancy-party-college-reunion-happy-hugging-girls-2JMFP60.jpg",
+                                                          "${controller.saleData.value.data![index].photo}",
                                                       checkInId: controller
                                                               .saleData
                                                               .value
@@ -110,8 +123,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               .data![index]
                                                               .lat ??
                                                           0.0,
-                                                      lng: controller.saleData.value.data![index].long ?? 0.0,
-                                                      status: "${controller.saleData.value.data![index].status}");
+                                                      lng: controller
+                                                              .saleData
+                                                              .value
+                                                              .data![index]
+                                                              .long ??
+                                                          0.0,
+                                                      status:
+                                                          "${controller.saleData.value.data![index].status}");
                                                 },
                                                 child: Container(
                                                   margin: const EdgeInsets.only(

@@ -6,13 +6,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:googlemap_ui/helpers/url.dart';
+import 'package:googlemap_ui/utils/single_ton.dart';
 import '../../../helpers/local_storage.dart';
 
 Future checkOutSale({
   double? lat,
   double? long,
   String? remark,
-  int? routeId,
   int? checkInId,
   File? file,
 }) async {
@@ -20,10 +20,9 @@ Future checkOutSale({
   final userId = await LocalStorage.getIntValue(key: "user_id");
   String fileName = file != null ? file.path.split("/").last : "";
   FormData formData = FormData.fromMap({
-    "route_id": routeId,
     "user_id": userId,
-    "latitude": lat,
-    "longitude": long,
+    "photo_lat": lat,
+    "photo_long": long,
     "remark": remark,
     "check_in_id": checkInId,
     "photo": file!.path != ""
@@ -41,9 +40,12 @@ Future checkOutSale({
               'Authorization': 'Bearer $token',
             }))
         .then((value) {
+      Singleton.obj.isCheckOut.value = true;
       debugPrint("done--------------------------- $value");
     });
   } on DioError catch (e) {
+    Singleton.obj.isCheckOut.value = false;
+
     debugPrint("error--------------------------$e-");
   }
 }
@@ -52,19 +54,18 @@ Future checkOutSaleWithOrder({
   double? lat,
   double? long,
   String? remark,
-  int? routeId,
   int? checkInId,
   File? file,
 }) async {
+  // debugPrint("lat ====== > $lat")
   final token = await LocalStorage.getStringValue(key: 'access_token');
   final userId = await LocalStorage.getIntValue(key: "user_id");
   String fileName = file != null ? file.path.split("/").last : "";
   FormData formData = FormData.fromMap({
-    "route_id": routeId,
     "user_id": userId,
-    "latitude": lat,
+    "photo_lat": lat,
     "has_order": true,
-    "longitude": long,
+    "photo_long": long,
     "remark": remark,
     "check_in_id": checkInId,
     "photo": file!.path != ""
@@ -74,7 +75,7 @@ Future checkOutSaleWithOrder({
   try {
     Dio dio = Dio();
     await dio
-        .post("$baseUrl/ppm_sale/api/check_out_with_oer/activity",
+        .post("$baseUrl/ppm_sale/api/check_out_with_order/activity",
             data: formData,
             options: Options(headers: {
               'Content-Type': 'application/json',
@@ -82,9 +83,12 @@ Future checkOutSaleWithOrder({
               'Authorization': 'Bearer $token',
             }))
         .then((value) {
+      Singleton.obj.isCheckOut.value = true;
       debugPrint("check out with order--------------------------- $value");
     });
   } on DioError catch (e) {
+    Singleton.obj.isCheckOut.value = false;
+
     debugPrint("error--------------------------$e-");
   }
 }
