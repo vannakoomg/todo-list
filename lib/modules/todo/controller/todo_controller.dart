@@ -111,7 +111,8 @@ class TodoController extends GetxController {
     }
   }
 
-  void showMapDetail(BuildContext context, double lat, double long) {
+  void showMapDetail(
+      BuildContext context, double lat, double long, String title) {
     showModalBottomSheet(
       enableDrag: false,
       isScrollControlled: true,
@@ -126,7 +127,7 @@ class TodoController extends GetxController {
             )),
             width: double.infinity,
             height: MediaQuery.sizeOf(context).height * 0.95,
-            child: MapDetail(lat: lat, long: long));
+            child: MapDetail(lat: lat, long: long, title: title));
       },
     );
   }

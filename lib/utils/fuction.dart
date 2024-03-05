@@ -44,12 +44,14 @@ MemoryImage imageFromBase64String(String base64String) {
   return MemoryImage(base64Decode(base64String));
 }
 
-void openGoogleMap(context, double lat, double lng) async {
+void openGoogleMap(
+    {context,
+    required double lat,
+    required double lng,
+    String title = ""}) async {
   try {
     final coords = Coords(lat, lng);
-    const title = "Ocean Beach";
     final availableMaps = await MapLauncher.installedMaps;
-    debugPrint("map lenth ${availableMaps.length}");
     if (availableMaps.length == 1) {
       availableMaps.first.showDirections(destination: coords);
     } else {

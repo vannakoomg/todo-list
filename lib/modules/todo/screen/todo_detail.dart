@@ -107,11 +107,8 @@ class _TodoDetailState extends State<TodoDetail> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                controller.showMapDetail(
-                                  context,
-                                  widget.lat,
-                                  widget.long,
-                                );
+                                controller.showMapDetail(context, widget.lat,
+                                    widget.long, controller.address.value);
                               },
                               child: SizedBox(
                                 height: 200,

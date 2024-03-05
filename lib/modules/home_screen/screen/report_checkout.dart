@@ -225,7 +225,12 @@ class _ReportCheckOutState extends State<ReportCheckOut> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                openGoogleMap(context, widget.lat, widget.long);
+                                openGoogleMap(
+                                  lat: widget.lat,
+                                  lng: widget.long,
+                                  context: context,
+                                  title: "",
+                                );
                               },
                               child: Text(
                                 "View Map",

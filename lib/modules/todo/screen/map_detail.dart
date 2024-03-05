@@ -12,7 +12,9 @@ import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 class MapDetail extends StatefulWidget {
   final double lat;
   final double long;
-  const MapDetail({super.key, required this.lat, required this.long});
+  final String title;
+  const MapDetail(
+      {super.key, required this.lat, required this.long, required this.title});
 
   @override
   State<MapDetail> createState() => MapDetailState();
@@ -143,9 +145,10 @@ class MapDetailState extends State<MapDetail> {
                 title: "Get Directions",
                 onTap: () {
                   openGoogleMap(
-                    context,
-                    widget.lat,
-                    widget.long,
+                    lat: widget.lat,
+                    lng: widget.long,
+                    context: context,
+                    title: widget.title,
                   );
                 },
               ),
