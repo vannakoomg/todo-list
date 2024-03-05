@@ -13,13 +13,11 @@ class TodoDetail extends StatefulWidget {
   final double lat;
   final double long;
   final int checkInId;
-  final int routeId;
   const TodoDetail({
     super.key,
     required this.lat,
     required this.long,
     required this.name,
-    required this.routeId,
     required this.checkInId,
   });
 
@@ -131,7 +129,6 @@ class _TodoDetailState extends State<TodoDetail> {
                         title: "CHECK IN",
                         onTap: () async {
                           controller.ontapCheckIn(
-                            routId: widget.routeId,
                             context: context,
                             shopLat: widget.lat,
                             shopLong: widget.long,

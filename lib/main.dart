@@ -4,21 +4,23 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:googlemap_ui/config/themes/themes.dart';
 import 'package:googlemap_ui/helpers/local_storage.dart';
+import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart';
 import 'package:googlemap_ui/modules/home_screen/screen/home_screen.dart';
 import 'package:googlemap_ui/modules/login/screen/login_screen.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
 
-void getToken() async {
-  String token = await LocalStorage.getStringValue(key: "access_token");
-  Future.delayed(const Duration(milliseconds: 100), () {
-    if (token != '') {
-      Get.to(() => const HomeScreen());
-    } else {
-      Get.to(() => const LoginScreen());
-    }
-  });
-}
+// void getToken() async {
+//   String token = await LocalStorage.getStringValue(key: "access_token");
+//   Future.delayed(const Duration(milliseconds: 100), () {
+//     if (token != '') {
+//       Get.to(() => const HomeScreen());
+//     } else {
+//       Get.to(() => const LoginScreen());
+//     }
+//   });
+// }
 
+final controller = Get.put(HomeController());
 void main() async {
   kkkkk();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +28,8 @@ void main() async {
   FlutterNativeSplash.remove();
   await dotenv.load(fileName: ".env");
   await LocalStorage.init();
-  getToken();
+  controller.token.value =
+      await LocalStorage.getStringValue(key: "access_token");
   runApp(const MyApp());
 }
 
@@ -42,7 +45,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: lightMode,
-        home: const LoginScreen(),
+        home: controller.token.value == ""
+            ? const LoginScreen()
+            : const HomeScreen(),
       ),
     );
   }

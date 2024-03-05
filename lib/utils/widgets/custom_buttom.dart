@@ -18,7 +18,7 @@ class CustomButtom extends StatelessWidget {
     this.height = 40,
     this.white = 80,
     this.textColors = Colors.white,
-    this.colors = const Color(0xff219ebc),
+    this.colors = const Color(0xff208b3a),
     this.borderColor = Colors.transparent,
     this.disble = false,
     this.fountSize = 16,

@@ -23,7 +23,6 @@ class TodoController extends GetxController {
     required double shopLat,
     required double shopLong,
     required int checkInID,
-    required int routId,
   }) async {
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
@@ -46,7 +45,6 @@ class TodoController extends GetxController {
               checkInId: checkInID,
               lat: shopLat,
               long: shopLong,
-              routId: routId,
             ),
           );
         });

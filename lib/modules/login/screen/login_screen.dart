@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:googlemap_ui/modules/login/controller/login_controller.dart';
-import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 
 import '../../../config/const/app_colors.dart';

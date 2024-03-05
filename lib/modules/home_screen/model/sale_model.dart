@@ -1,171 +1,106 @@
 class SaleModel {
-  List<Data>? data;
   int? status;
+  List<Data>? data;
 
-  SaleModel({this.data, this.status});
+  SaleModel({this.status, this.data});
 
   SaleModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
         data!.add(Data.fromJson(v));
       });
     }
-    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    data['status'] = status;
     return data;
   }
 }
 
 class Data {
   int? id;
-  String? name;
-  String? visitCycle;
-  bool? monDay;
-  bool? tueDay;
-  bool? wedDay;
-  bool? thuDay;
-  bool? friDay;
-  bool? satDay;
+  String? customerName;
+  int? partnerId;
+  int? userId;
+  String? todoDate;
+  String? checkInDate;
+  String? checkOutDate;
   String? status;
-  int? checkInId;
-  SaleManId? saleManId;
-  Customer? customer;
+  String? address;
+  String? customerCode;
+  double? lat;
+  double? long;
+  List<String>? photo;
+  String? photoLat;
+  String? photoLong;
+  bool? hasOrder;
+  String? remark;
 
   Data(
       {this.id,
-      this.name,
-      this.visitCycle,
-      this.monDay,
-      this.tueDay,
-      this.wedDay,
-      this.thuDay,
-      this.friDay,
-      this.satDay,
+      this.customerName,
+      this.partnerId,
+      this.userId,
+      this.todoDate,
+      this.checkInDate,
+      this.checkOutDate,
       this.status,
-      this.checkInId,
-      this.saleManId,
-      this.customer});
+      this.address,
+      this.customerCode,
+      this.lat,
+      this.long,
+      this.photo,
+      this.photoLat,
+      this.photoLong,
+      this.hasOrder,
+      this.remark});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
-    visitCycle = json['visit_cycle'];
-    monDay = json['mon_day'];
-    tueDay = json['tue_day'];
-    wedDay = json['wed_day'];
-    thuDay = json['thu_day'];
-    friDay = json['fri_day'];
-    satDay = json['sat_day'];
+    customerName = json['customer_name'];
+    partnerId = json['partner_id'];
+    userId = json['user_id'];
+    todoDate = json['todo_date'];
+    checkInDate = json['check_in_date'];
+    checkOutDate = json['check_out_date'];
     status = json['status'];
-    checkInId = json['check_in_id'];
-    saleManId = json['sale_man_id'] != null
-        ? SaleManId.fromJson(json['sale_man_id'])
-        : null;
-    customer =
-        json['customer'] != null ? Customer.fromJson(json['customer']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['visit_cycle'] = visitCycle;
-    data['mon_day'] = monDay;
-    data['tue_day'] = tueDay;
-    data['wed_day'] = wedDay;
-    data['thu_day'] = thuDay;
-    data['fri_day'] = friDay;
-    data['sat_day'] = satDay;
-    data['status'] = status;
-    data['check_in_id'] = checkInId;
-    if (saleManId != null) {
-      data['sale_man_id'] = saleManId!.toJson();
-    }
-    if (customer != null) {
-      data['customer'] = customer!.toJson();
-    }
-    return data;
-  }
-}
-
-class SaleManId {
-  int? id;
-  String? name;
-  bool? phone;
-  Leader? leader;
-
-  SaleManId({this.id, this.name, this.phone, this.leader});
-
-  SaleManId.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    phone = json['phone'];
-    leader = json['leader'] != null ? Leader.fromJson(json['leader']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['phone'] = phone;
-    if (leader != null) {
-      data['leader'] = leader!.toJson();
-    }
-    return data;
-  }
-}
-
-class Leader {
-  int? id;
-  String? name;
-
-  Leader({this.id, this.name});
-
-  Leader.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    return data;
-  }
-}
-
-class Customer {
-  int? id;
-  String? name;
-  String? address;
-  double? late;
-  double? long;
-
-  Customer({this.id, this.name, this.address, this.late, this.long});
-
-  Customer.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
     address = json['address'];
-    late = json['late'];
+    customerCode = json['customer_code'];
+    lat = json['lat'];
     long = json['long'];
+    photo = json['photo'].cast<String>();
+    photoLat = json['photo_lat'];
+    photoLong = json['photo_long'];
+    hasOrder = json['has_order'];
+    remark = json['remark'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['name'] = name;
+    data['customer_name'] = customerName;
+    data['partner_id'] = partnerId;
+    data['user_id'] = userId;
+    data['todo_date'] = todoDate;
+    data['check_in_date'] = checkInDate;
+    data['check_out_date'] = checkOutDate;
+    data['status'] = status;
     data['address'] = address;
-    data['late'] = late;
+    data['customer_code'] = customerCode;
+    data['lat'] = lat;
     data['long'] = long;
+    data['photo'] = photo;
+    data['photo_lat'] = photoLat;
+    data['photo_long'] = photoLong;
+    data['has_order'] = hasOrder;
+    data['remark'] = remark;
     return data;
   }
 }

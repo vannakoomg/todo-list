@@ -30,9 +30,9 @@ class ApiBaseHelper {
     required bool isAuthorize,
     String base = '',
   }) async {
-    debugPrint("body $baseUrl");
     final token = await LocalStorage.getStringValue(key: 'access_token');
     final fullUrl = base == '' ? baseUrl + url : base + url;
+    debugPrint("body $fullUrl");
     Map<String, String> headerDefault = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -45,9 +45,11 @@ class ApiBaseHelper {
               options: Options(headers: header ?? headerDefault), data: body);
           return _returnResponse(response);
         case METHODE.post:
-          final response = await dio.post(fullUrl,
-              options: Options(headers: header ?? headerDefault),
-              data: body ?? {});
+          final response = await dio.post(
+            fullUrl,
+            options: Options(headers: header ?? headerDefault),
+            data: body ?? {},
+          );
           return _returnResponse(response);
         case METHODE.put:
           final response = await dio.put(fullUrl,
@@ -69,6 +71,7 @@ class ApiBaseHelper {
   }
 
   dynamic _returnResponse(Response response) {
+    debugPrint("code ${response.statusCode}");
     switch (response.statusCode) {
       case 200:
         return response.data;
@@ -83,7 +86,9 @@ class ApiBaseHelper {
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));
       case 401:
-        return 3000;
+        return Future.error(ErrorModel(
+            statusCode: response.statusCode, bodyString: response.data!));
+
       case 403:
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));

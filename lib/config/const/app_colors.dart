@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 extension AppColor on Color {
   // for widget
   static var primaryColor = Colors.white;
-  static var secondnaryColor = const Color(0xff219ebc);
+  static var secondnaryColor = const Color(0xff208b3a);
   static var backgroundColor = const Color.fromARGB(255, 217, 217, 217);
   static var mainColor = Colors.black;
   //for font

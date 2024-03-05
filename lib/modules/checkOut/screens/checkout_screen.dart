@@ -10,13 +10,11 @@ import 'package:googlemap_ui/utils/widgets/custom_texfiled.dart';
 class CheckOutScreen extends StatelessWidget {
   final double lat;
   final double long;
-  final int routId;
   final int checkInId;
   const CheckOutScreen({
     super.key,
     required this.lat,
     required this.long,
-    required this.routId,
     required this.checkInId,
   });
 
@@ -173,7 +171,6 @@ class CheckOutScreen extends StatelessWidget {
                           checkInId: checkInId,
                           lat: lat,
                           long: long,
-                          routeId: routId,
                         );
                       },
                       white: 130,

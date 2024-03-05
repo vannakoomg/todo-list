@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, avoid_print
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -35,6 +36,10 @@ Future<String> getDeviceName(BuildContext context) async {
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
     return iosInfo.name;
   }
+}
+
+MemoryImage imageFromBase64String(String base64String) {
+  return MemoryImage(base64Decode(base64String));
 }
 
 void openGoogleMap(context, double lat, double lng) async {

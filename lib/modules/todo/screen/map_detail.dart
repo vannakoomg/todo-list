@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_collection_literals
 
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -80,9 +81,9 @@ class MapDetailState extends State<MapDetail> {
                   markers: {
                     Marker(
                       markerId: const MarkerId("userLocation"),
-                      position: const LatLng(
-                        11.570310254306118,
-                        104.89154143839733,
+                      position: LatLng(
+                        widget.lat,
+                        widget.long,
                       ),
                       infoWindow: const InfoWindow(
                         title: "Current Location",
@@ -110,10 +111,10 @@ class MapDetailState extends State<MapDetail> {
                       final GoogleMapController controller =
                           await _controller.future;
                       await controller.animateCamera(
-                          CameraUpdate.newCameraPosition(const CameraPosition(
+                          CameraUpdate.newCameraPosition(CameraPosition(
                         target: LatLng(
-                          11.570310254306118,
-                          104.89154143839733,
+                          todoController.currentlat.value,
+                          todoController.currentlng.value,
                         ),
                         zoom: 14.4746,
                       )));

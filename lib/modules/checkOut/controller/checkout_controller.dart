@@ -35,7 +35,6 @@ class CheckOutController extends GetxController {
     required double lat,
     required double long,
     required int checkInId,
-    required int routeId,
   }) async {
     isloading.value = true;
     if (hasOrder.value) {
@@ -44,7 +43,6 @@ class CheckOutController extends GetxController {
           lat: lat,
           long: long,
           checkInId: checkInId,
-          routeId: routeId,
           file: photo.value,
           remark: remark.value,
         ).then((value) {
@@ -59,7 +57,6 @@ class CheckOutController extends GetxController {
         lat: lat,
         long: long,
         checkInId: checkInId,
-        routeId: routeId,
         file: photo.value,
         remark: remark.value,
       );

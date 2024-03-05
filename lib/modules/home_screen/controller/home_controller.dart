@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:googlemap_ui/helpers/api_base_helper.dart';
 import 'package:googlemap_ui/modules/checkOut/screens/checkout_screen.dart';
-import 'package:googlemap_ui/modules/home_screen/screen/report_checkout.dart';
 import 'package:googlemap_ui/modules/todo/screen/todo_detail.dart';
 import 'package:intl/intl.dart';
 
 import '../../../helpers/local_storage.dart';
 import '../model/sale_model.dart';
+import '../screen/report_checkout.dart';
 
 class HomeController extends GetxController {
+  final token = ''.obs;
   final datetime = DateTime.now().obs;
   final isloading = false.obs;
   int indexOfSale = 0;
-
   final date = ''.obs;
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -45,16 +45,17 @@ class HomeController extends GetxController {
     final userId = await LocalStorage.getIntValue(key: "user_id");
 
     isloading.value = true;
-    ApiBaseHelper.apiBaseHelper
-        .onNetworkRequesting(
-      url: "/ppm_sale/api/sale_route_list?user_id=$userId",
+    ApiBaseHelper.apiBaseHelper.onNetworkRequesting(
+      url: "/ppm_sale/api/sale_activity_today?user_id=$userId",
       methode: METHODE.post,
       isAuthorize: true,
-    )
-        .then((value) {
+      body: {},
+    ).then((value) {
+      debugPrint("valeu $value");
       saleData.value = SaleModel.fromJson(value);
       isloading.value = false;
     }).onError((error, stackTrace) {
+      debugPrint("error $error");
       isloading.value = false;
     });
   }
@@ -63,7 +64,8 @@ class HomeController extends GetxController {
     required String status,
     required double lat,
     required double lng,
-    required int routeId,
+    required double photoLat,
+    required double photolong,
     required int checkInId,
     required String name,
     required String date,
@@ -72,48 +74,29 @@ class HomeController extends GetxController {
     required String remark,
   }) {
     debugPrint(status);
-    // if (status == "todo") {
-    //   Get.to(() => ReportCheckOut(
-    //         routeId: routeId,
-    //         lat: lat,
-    //         long: lng,
-    //         checkInId: checkInId,
-    //         date: date,
-    //         remark: remark,
-    //         urlImage: urlImage,
-    //         hasOrder: hasOrder,
-    //       ));
-    // } else if (status == "check-in") {
-    // Get.to(() => ReportCheckOut(
-    //       routeId: routeId,
-    //       lat: lat,
-    //       long: lng,
-    //       checkInId: checkInId,
-    //       date: date,
-    //       remark: remark,
-    //       urlImage: urlImage,
-    //       hasOrder: hasOrder,
-    //     ));
-
-    // } else {
-    //   Get.to(() => ReportCheckOut(
-    //         routeId: routeId,
-    //         lat: lat,
-    //         long: lng,
-    //         checkInId: checkInId,
-    //         date: date,
-    //         remark: remark,
-    //         urlImage: urlImage,
-    //         hasOrder: hasOrder,
-    //       ));
-    //   // Get.to(() => const ReportCheckOut());
-    // }
-    Get.to(() => CheckOutScreen(
-          routId: routeId,
-          lat: lat,
-          long: lng,
-          checkInId: checkInId,
-        ));
+    if (status != "todo") {
+      Get.to(() => TodoDetail(
+            name: name,
+            lat: photoLat,
+            long: photolong,
+            checkInId: checkInId,
+          ));
+    } else if (status == "check-in") {
+      Get.to(() => CheckOutScreen(
+            lat: photoLat,
+            long: photolong,
+            checkInId: checkInId,
+          ));
+    } else {
+      Get.to(() => ReportCheckOut(
+            lat: photoLat,
+            long: photolong,
+            date: date,
+            remark: remark,
+            urlImage: urlImage,
+            hasOrder: hasOrder,
+          ));
+    }
   }
 
   bool checkAvailabel(
