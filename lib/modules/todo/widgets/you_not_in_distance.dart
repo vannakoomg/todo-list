@@ -22,9 +22,11 @@ Future<void> youNotinLocation(BuildContext context) async {
               Text('Location', style: Theme.of(context).textTheme.titleMedium),
               Expanded(
                 child: Center(
-                  child: Text('You are not in the rang of shop !',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.onSecondary)),
+                  child: Text(
+                    'You are not in the location of shop !',
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onSecondary),
+                  ),
                 ),
               ),
               CustomButtom(

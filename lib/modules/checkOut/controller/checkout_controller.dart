@@ -43,12 +43,11 @@ class CheckOutController extends GetxController {
     required BuildContext context,
   }) async {
     unFocus(context);
+    isloading.value = true;
     await checkPermission(context);
     Position current = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
-    debugPrint("location ${current.latitude}");
-    isloading.value = true;
     if (hasOrder.value) {
       try {
         await checkOutSaleWithOrder(
@@ -57,10 +56,9 @@ class CheckOutController extends GetxController {
           checkInId: checkInId,
           file: photo.value,
           remark: remark.value,
-        ).then((value) {
-          homeController.saleData.value.data![homeController.indexOfSale]
-              .status = "check-out-with-order";
-        });
+        ).then((value) {});
+        homeController.saleData.value.data![homeController.indexOfSale].status =
+            "check-out-order";
       } catch (value) {
         debugPrint("you on cahlkaflkasjflksadjlf");
       }
@@ -71,10 +69,9 @@ class CheckOutController extends GetxController {
         checkInId: checkInId,
         file: photo.value,
         remark: remark.value,
-      ).then((value) {
-        homeController.saleData.value.data![homeController.indexOfSale].status =
-            "check-out";
-      });
+      ).then((value) {});
+      homeController.saleData.value.data![homeController.indexOfSale].status =
+          "check-out";
     }
     if (Singleton.obj.isCheckOut.value == true) {
       homeController.saleData.refresh();

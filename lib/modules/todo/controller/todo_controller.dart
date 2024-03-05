@@ -33,7 +33,6 @@ class TodoController extends GetxController {
       }
       double disabled = Geolocator.distanceBetween(
           shopLat, shopLong, currentlat.value, currentlng.value);
-      disabled = 8;
       if (disabled < 70) {
         checkInActivity(checkInID).then((value) {
           homeController.saleData.value.data![homeController.indexOfSale]
@@ -80,8 +79,18 @@ class TodoController extends GetxController {
     currentlng.value = location.longitude;
   }
 
-  void getaddress(double lat, double long) async {
-    address.value = await getAddressFromLatLng(lat, long);
+  Future getaddress(double lat, double long) async {
+    await getAddressFromLatLng(lat, long).then(
+      (value) {
+        debugPrint("address.value $value");
+
+        address.value = value;
+      },
+    ).onError(
+      (error, stackTrace) {
+        address.value = "";
+      },
+    );
   }
 
   Future<String> getAddressFromLatLng(double lat, double long) async {
@@ -97,7 +106,7 @@ class TodoController extends GetxController {
         return 'No Address Found';
       }
     } catch (e) {
-      return 'Error: $e';
+      return 'Not Found';
     }
   }
 
