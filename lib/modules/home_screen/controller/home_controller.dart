@@ -14,7 +14,7 @@ import '../screen/report_checkout.dart';
 class HomeController extends GetxController {
   final token = ''.obs;
   final isloading = false.obs;
-  int indexOfSale = 0;
+  final indexOfSale = 0.obs;
   final currentlat = 0.0.obs;
   final currentlng = 0.0.obs;
   final saleData = SaleModel().obs;
@@ -55,8 +55,8 @@ class HomeController extends GetxController {
     if (status == "todo") {
       Get.to(() => TodoDetail(
             name: name,
-            lat: photoLat,
-            long: photolong,
+            lat: lat,
+            long: lng,
             checkInId: checkInId,
           ));
     } else if (status == "check-in") {

@@ -57,8 +57,8 @@ class CheckOutController extends GetxController {
           file: photo.value,
           remark: remark.value,
         ).then((value) {});
-        homeController.saleData.value.data![homeController.indexOfSale].status =
-            "check-out-order";
+        homeController.saleData.value.data![homeController.indexOfSale.value]
+            .status = "check-out-order";
       } catch (value) {
         debugPrint("you on cahlkaflkasjflksadjlf");
       }
@@ -70,8 +70,8 @@ class CheckOutController extends GetxController {
         file: photo.value,
         remark: remark.value,
       ).then((value) {});
-      homeController.saleData.value.data![homeController.indexOfSale].status =
-          "check-out";
+      homeController.saleData.value.data![homeController.indexOfSale.value]
+          .status = "check-out";
     }
     if (Singleton.obj.isCheckOut.value == true) {
       homeController.saleData.refresh();

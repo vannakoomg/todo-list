@@ -33,9 +33,10 @@ class TodoController extends GetxController {
       }
       double disabled = Geolocator.distanceBetween(
           shopLat, shopLong, currentlat.value, currentlng.value);
+      disabled = 8;
       if (disabled < 70) {
         checkInActivity(checkInID).then((value) {
-          homeController.saleData.value.data![homeController.indexOfSale]
+          homeController.saleData.value.data![homeController.indexOfSale.value]
               .status = "check-in";
           homeController.saleData.refresh();
           Get.back();

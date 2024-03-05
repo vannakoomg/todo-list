@@ -143,7 +143,10 @@ class MapDetailState extends State<MapDetail> {
                 title: "Get Directions",
                 onTap: () {
                   openGoogleMap(
-                      context, 11.568449483008305, 104.89069000146132);
+                    context,
+                    widget.lat,
+                    widget.long,
+                  );
                 },
               ),
             ],

@@ -67,9 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             itemCount: controller
                                                 .saleData.value.data!.length,
                                             itemBuilder: (context, index) {
-                                              controller.indexOfSale = index;
                                               return GestureDetector(
                                                 onTap: () async {
+                                                  controller.indexOfSale.value =
+                                                      index;
                                                   double photoLat = controller
                                                               .saleData
                                                               .value
