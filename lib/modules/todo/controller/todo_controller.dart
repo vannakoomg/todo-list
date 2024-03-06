@@ -33,7 +33,7 @@ class TodoController extends GetxController {
       }
       double disabled = Geolocator.distanceBetween(
           shopLat, shopLong, currentlat.value, currentlng.value);
-      disabled = 8;
+      // disabled = 8;
       if (disabled < 70) {
         checkInActivity(checkInID).then((value) {
           homeController.saleData.value.data![homeController.indexOfSale.value]
@@ -49,7 +49,8 @@ class TodoController extends GetxController {
           );
         });
       } else {
-        youNotinLocation(context);
+        youNotinLocation(context,
+            "Unable to check in. Your coordinates are not within range.");
       }
     } else {
       allowlocaiton(context);

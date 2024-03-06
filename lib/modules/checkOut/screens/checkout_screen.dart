@@ -7,7 +7,9 @@ import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 import 'package:googlemap_ui/utils/widgets/custom_loading.dart';
 import 'package:googlemap_ui/utils/widgets/custom_texfiled.dart';
 
-class CheckOutScreen extends StatelessWidget {
+import '../../../utils/fuction.dart';
+
+class CheckOutScreen extends StatefulWidget {
   final double lat;
   final double long;
   final int checkInId;
@@ -19,8 +21,23 @@ class CheckOutScreen extends StatelessWidget {
   });
 
   @override
+  State<CheckOutScreen> createState() => _CheckOutScreenState();
+}
+
+class _CheckOutScreenState extends State<CheckOutScreen> {
+  final controller = Get.put(CheckOutController());
+
+  @override
+  void initState() {
+    checkPermission(context);
+    controller.getCurrentLocation();
+    controller.shoplat.value = widget.lat;
+    controller.shoplong.value = widget.long;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CheckOutController());
     return Obx(() => Stack(
           children: [
             Scaffold(
@@ -168,7 +185,7 @@ class CheckOutScreen extends StatelessWidget {
                       title: "CHECK OUT",
                       onTap: () {
                         controller.checkOut(
-                          checkInId: checkInId,
+                          checkInId: widget.checkInId,
                           context: context,
                         );
                       },

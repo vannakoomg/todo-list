@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:googlemap_ui/config/const/app_colors.dart';
 
 import '../../../utils/widgets/custom_buttom.dart';
 
-Future<void> youNotinLocation(BuildContext context) async {
+Future<void> youNotinLocation(BuildContext context, String descrition) async {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -23,9 +21,11 @@ Future<void> youNotinLocation(BuildContext context) async {
               Expanded(
                 child: Center(
                   child: Text(
-                    'You are not in the location of shop !',
+                    descrition,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.onSecondary),
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),

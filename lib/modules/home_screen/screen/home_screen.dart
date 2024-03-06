@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   size: 50,
                                                 ),
                                                 Text(
-                                                  "There are no task for you\n today.",
+                                                  "No task for you now.",
                                                   textAlign: TextAlign.center,
                                                   style: Theme.of(context)
                                                       .textTheme
