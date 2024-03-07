@@ -7,12 +7,17 @@ import 'package:get/get.dart';
 import 'package:googlemap_ui/helpers/api_base_helper.dart';
 import 'package:googlemap_ui/modules/checkOut/screens/checkout_screen.dart';
 import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart';
+import 'package:googlemap_ui/modules/home_screen/model/sale_model.dart';
+import 'package:googlemap_ui/modules/todo/models/customer_model.dart';
 import 'package:googlemap_ui/modules/todo/screen/map_detail.dart';
 
+import '../../../config/const/app_colors.dart';
+import '../../../helpers/local_storage.dart';
 import '../widgets/allow_location.dart';
 import '../widgets/you_not_in_distance.dart';
 
-class TodoController extends GetxController {
+class ChcekinController extends GetxController {
+  final isShowCustomer = false.obs;
   final homeController = Get.put(HomeController());
   final address = "".obs;
   final currentlat = 0.0.obs;
@@ -33,7 +38,6 @@ class TodoController extends GetxController {
       }
       double disabled = Geolocator.distanceBetween(
           shopLat, shopLong, currentlat.value, currentlng.value);
-      // disabled = 8;
       if (disabled < 70) {
         checkInActivity(checkInID).then((value) {
           homeController.saleData.value.data![homeController.indexOfSale.value]
@@ -84,8 +88,6 @@ class TodoController extends GetxController {
   Future getaddress(double lat, double long) async {
     await getAddressFromLatLng(lat, long).then(
       (value) {
-        debugPrint("address.value $value");
-
         address.value = value;
       },
     ).onError(
@@ -131,5 +133,121 @@ class TodoController extends GetxController {
             child: MapDetail(lat: lat, long: long, title: title));
       },
     );
+  }
+
+  // customer
+  final customer = CustomerModel().obs;
+  final selectIndex = 1000.obs;
+  final shopName = ''.obs;
+  final shopLat = 0.0.obs;
+  final shopLong = 0.0.obs;
+  final paraterId = 0.obs;
+  Future fetchCustomer() async {
+    isloading.value = true;
+    ApiBaseHelper.apiBaseHelper
+        .onNetworkRequesting(
+            url: "/ppm_sale/api/fetch_customer",
+            methode: METHODE.post,
+            isAuthorize: true)
+        .then((value) {
+      customer.value = CustomerModel.fromJson(value);
+      isloading.value = false;
+    }).onError((error, stackTrace) {
+      isloading.value = false;
+      debugPrint("eroor $error");
+    });
+  }
+
+  void onselected(
+      int index, String name, double lat, double long, int parater) async {
+    paraterId.value = parater;
+    shopLat.value = lat;
+    shopLong.value = long;
+    selectIndex.value = index;
+
+    Future.delayed(
+      const Duration(milliseconds: 100),
+      () {
+        isShowCustomer.value = !isShowCustomer.value;
+      },
+    );
+    Future.delayed(const Duration(milliseconds: 250), () {
+      shopName.value = name;
+    });
+    await getaddress(lat, long);
+  }
+
+  Future checkinNewCustomer(BuildContext context) async {
+    isShowCustomer.value = false;
+    isloading.value = true;
+    final userId = await LocalStorage.getIntValue(key: "user_id");
+    debugPrint("$paraterId $userId");
+
+    ApiBaseHelper.apiBaseHelper
+        .onNetworkRequesting(
+      url: "/ppm_sale/api/new/activity?partner_id=$paraterId&user_id=$userId",
+      methode: METHODE.post,
+      isAuthorize: true,
+    )
+        .then((value) {
+      homeController.saleData.value.data!.insert(
+        0,
+        Sale(
+          address: "",
+          hasOrder: false,
+          status: "check-in",
+          checkInDate: "",
+          checkOutDate: "",
+          lat: shopLat.value,
+          long: shopLong.value,
+          photo: "",
+          customerCode: "",
+          customerName: shopName.value,
+          photoLat: "",
+          photoLong: "",
+          remark: "",
+          userId: 2,
+          id: value["data"]["check_in_id"],
+        ),
+      );
+      homeController.indexOfSale.value = 0;
+      homeController.saleData.refresh();
+      Get.back();
+      Get.to(
+        () => CheckOutScreen(
+          lat: shopLat.value,
+          long: shopLong.value,
+          checkInId: value["data"]["check_in_id"],
+        ),
+      );
+      isloading.value = false;
+    }).onError((error, stackTrace) {
+      isloading.value = false;
+      Get.defaultDialog(
+          titlePadding: const EdgeInsets.only(top: 20),
+          contentPadding:
+              const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+          title: "OOPS !",
+          titleStyle: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: AppColor.dangerColor),
+          content: Column(
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                "SOMETHING WENT WRONG PLEASE TRY AGAIN",
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: Theme.of(context).colorScheme.onSecondary),
+              ),
+            ],
+          ));
+      debugPrint("errrrorrr $error");
+    });
   }
 }

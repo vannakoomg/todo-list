@@ -2,18 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:googlemap_ui/modules/todo/controller/todo_controller.dart';
+import 'package:googlemap_ui/modules/todo/controller/check_in_controller.dart';
 import 'package:googlemap_ui/modules/todo/screen/simple_google_map.dart';
 import 'package:googlemap_ui/utils/widgets/custom_app.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 import 'package:googlemap_ui/utils/widgets/custom_loading.dart';
 
-class TodoDetail extends StatefulWidget {
+class CheckInScreen extends StatefulWidget {
   final String name;
   final double lat;
   final double long;
   final int checkInId;
-  const TodoDetail({
+  const CheckInScreen({
     super.key,
     required this.lat,
     required this.long,
@@ -22,11 +22,11 @@ class TodoDetail extends StatefulWidget {
   });
 
   @override
-  State<TodoDetail> createState() => _TodoDetailState();
+  State<CheckInScreen> createState() => _CheckInScreenState();
 }
 
-class _TodoDetailState extends State<TodoDetail> {
-  final controller = Get.put(TodoController());
+class _CheckInScreenState extends State<CheckInScreen> {
+  final controller = Get.put(ChcekinController());
   @override
   void initState() {
     controller.getaddress(widget.lat, widget.long);
@@ -36,12 +36,12 @@ class _TodoDetailState extends State<TodoDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(TodoController());
+    final controller = Get.put(ChcekinController());
     return Obx(() => Stack(
           children: [
             Scaffold(
               backgroundColor: Theme.of(context).colorScheme.background,
-              appBar: const CustomAppBar(title: "Todo Detail"),
+              appBar: const CustomAppBar(title: "Check In"),
               body: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(

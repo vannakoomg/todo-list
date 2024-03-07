@@ -10,11 +10,11 @@ import 'package:googlemap_ui/modules/checkOut/controller/kkkk.dart';
 import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart';
 import 'package:googlemap_ui/modules/todo/widgets/you_not_in_distance.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../utils/single_ton.dart';
 
 class CheckOutController extends GetxController {
+  final isShowCustomer = false.obs;
   final oldRemark = "".obs;
   final oldHasOrder = false.obs;
   final homeController = Get.put(HomeController());
@@ -53,6 +53,8 @@ class CheckOutController extends GetxController {
     photo.value = await compressImage(photo.value);
   }
 
+  //
+  final distance = 0.0.obs;
   Future checkOut({
     required int checkInId,
     required BuildContext context,
@@ -62,9 +64,14 @@ class CheckOutController extends GetxController {
       isloading.value = true;
       await getCurrentLocation();
     }
-    double disabled = Geolocator.distanceBetween(
-        shoplat.value, shoplong.value, currentlat.value, currentlng.value);
-    if (disabled < 70) {
+    if (shoplat.value != 0) {
+      distance.value = Geolocator.distanceBetween(
+          shoplat.value, shoplong.value, currentlat.value, currentlng.value);
+    } else {
+      distance.value = 1;
+    }
+    debugPrint("distance $distance");
+    if (distance.value < 70) {
       isloading.value = true;
       if (hasOrder.value) {
         try {
@@ -124,8 +131,10 @@ class CheckOutController extends GetxController {
       }
       isloading.value = false;
     } else {
-      await youNotinLocation(context,
-          "Unable to Check out. Your coordinates are not within range.");
+      await youNotinLocation(
+        context,
+        "Unable to Check out. Your coordinates are not within range.",
+      );
     }
   }
 }

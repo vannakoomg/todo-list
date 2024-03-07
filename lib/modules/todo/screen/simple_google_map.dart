@@ -30,7 +30,7 @@ class SimpleGoogleMapState extends State<SimpleGoogleMap> {
         Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
           ),
           height: 200,
           child: AbsorbPointer(
@@ -46,18 +46,19 @@ class SimpleGoogleMapState extends State<SimpleGoogleMap> {
               mapToolbarEnabled: false,
               myLocationButtonEnabled: false,
               markers: {
-                Marker(
-                  markerId: const MarkerId("userLocation"),
-                  position: LatLng(
-                    widget.lat,
-                    widget.long,
+                if (widget.lat != 0)
+                  Marker(
+                    markerId: const MarkerId("userLocation"),
+                    position: LatLng(
+                      widget.lat,
+                      widget.long,
+                    ),
+                    infoWindow: const InfoWindow(
+                      title: "Current Location",
+                    ),
+                    icon: BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueRose),
                   ),
-                  infoWindow: const InfoWindow(
-                    title: "Current Location",
-                  ),
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueRose),
-                ),
               },
             ),
           ),
@@ -65,9 +66,9 @@ class SimpleGoogleMapState extends State<SimpleGoogleMap> {
         Container(
           decoration: BoxDecoration(
             border: Border.all(color: AppColor.secondnaryColor, width: 0.5),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
           ),
-        )
+        ),
       ],
     );
   }

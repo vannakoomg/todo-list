@@ -9,10 +9,12 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:map_launcher/map_launcher.dart';
 
+import '../config/const/app_colors.dart';
 import '../modules/todo/widgets/allow_location.dart';
 
 Future unFocus(BuildContext context) async {
@@ -151,4 +153,30 @@ void kkkkk() {
   // Decrypting
   final decrypted = encrypter.decrypt(encrypted, iv: iv);
   print('Decrypted: $decrypted');
+}
+
+Future alertError(BuildContext context) async {
+  return Get.defaultDialog(
+      titlePadding: const EdgeInsets.only(top: 20),
+      contentPadding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+      title: "OOPS !",
+      titleStyle: Theme.of(context)
+          .textTheme
+          .titleLarge!
+          .copyWith(color: AppColor.dangerColor),
+      content: Column(
+        children: [
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            "SOMETHING WENT WRONG PLEASE TRY AGAIN",
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onSecondary),
+          ),
+        ],
+      ));
 }

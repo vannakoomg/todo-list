@@ -7,38 +7,41 @@ class CustomOops extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "OOPS !",
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onSecondary, fontSize: 25),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Text(
-          "SOMETHING WENT WRONG PLEASE ",
-          textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(color: Theme.of(context).colorScheme.onSecondary),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        CustomButtom(
-          white: 100,
-          height: 35,
-          title: "TRY AGAIN !",
-          fountSize: 12.5,
-          onTap: () {
-            ontap();
-          },
-        )
-      ],
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "OOPS !",
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondary, fontSize: 25),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            "SOMETHING WENT WRONG PLEASE ",
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onSecondary),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          CustomButtom(
+            white: 100,
+            height: 35,
+            title: "TRY AGAIN !",
+            fountSize: 12.5,
+            onTap: () {
+              ontap();
+            },
+          )
+        ],
+      ),
     );
   }
 }

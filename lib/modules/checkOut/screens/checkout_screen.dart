@@ -33,6 +33,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     controller.getCurrentLocation();
     controller.shoplat.value = widget.lat;
     controller.shoplong.value = widget.long;
+
     super.initState();
   }
 

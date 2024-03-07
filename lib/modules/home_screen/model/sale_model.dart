@@ -2,16 +2,16 @@
 
 class SaleModel {
   int? status;
-  List<Data>? data;
+  List<Sale>? data;
 
   SaleModel({this.status, this.data});
 
   SaleModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <Sale>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(Sale.fromJson(v));
       });
     }
   }
@@ -26,7 +26,7 @@ class SaleModel {
   }
 }
 
-class Data {
+class Sale {
   int? id;
   String? customerName;
   int? partnerId;
@@ -45,7 +45,7 @@ class Data {
   bool? hasOrder;
   String? remark;
 
-  Data(
+  Sale(
       {this.id,
       this.customerName,
       this.partnerId,
@@ -64,7 +64,7 @@ class Data {
       this.hasOrder,
       this.remark});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Sale.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     customerName = json['customer_name'];
     partnerId = json['partner_id'];

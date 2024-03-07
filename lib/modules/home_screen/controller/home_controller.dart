@@ -3,11 +3,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:googlemap_ui/helpers/api_base_helper.dart';
 import 'package:googlemap_ui/modules/checkOut/screens/checkout_screen.dart';
-import 'package:googlemap_ui/modules/todo/screen/todo_detail.dart';
+import 'package:googlemap_ui/modules/todo/screen/check_in.dart';
 
 import '../../../helpers/local_storage.dart';
 import '../model/sale_model.dart';
-import '../screen/report_checkout.dart';
+import '../screen/activity_detail.dart';
 
 class HomeController extends GetxController {
   final token = ''.obs;
@@ -51,7 +51,7 @@ class HomeController extends GetxController {
   }) {
     debugPrint(status);
     if (status == "todo") {
-      Get.to(() => TodoDetail(
+      Get.to(() => CheckInScreen(
             name: name,
             lat: lat,
             long: lng,
@@ -59,18 +59,13 @@ class HomeController extends GetxController {
           ));
     } else if (status == "check-in") {
       Get.to(() => CheckOutScreen(
-            lat: photoLat,
-            long: photolong,
+            lat: lat,
+            long: lng,
             checkInId: checkInId,
           ));
     } else {
       Get.to(() => ReportCheckOut(
-            lat: photoLat,
-            long: photolong,
-            date: date,
-            remark: remark,
-            urlImage: urlImage,
-            hasOrder: hasOrder,
+            id: checkInId,
           ));
     }
   }
@@ -81,5 +76,15 @@ class HomeController extends GetxController {
     );
     currentlat.value = location.latitude;
     currentlng.value = location.longitude;
+  }
+
+  Future fetchActivityDetail() async {
+    ApiBaseHelper.apiBaseHelper
+        .onNetworkRequesting(
+            url: "/ppm_sale/api/detail/activity",
+            methode: METHODE.post,
+            isAuthorize: true)
+        .then((value) {})
+        .onError((error, stackTrace) {});
   }
 }

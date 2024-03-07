@@ -9,18 +9,18 @@ import 'package:googlemap_ui/modules/todo/controller/check_in_controller.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 
-class MapDetail extends StatefulWidget {
+class MapNon extends StatefulWidget {
   final double lat;
   final double long;
   final String title;
-  const MapDetail(
+  const MapNon(
       {super.key, required this.lat, required this.long, required this.title});
 
   @override
-  State<MapDetail> createState() => MapDetailState();
+  State<MapNon> createState() => MapNonState();
 }
 
-class MapDetailState extends State<MapDetail> {
+class MapNonState extends State<MapNon> {
   final todoController = Get.put(ChcekinController());
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
