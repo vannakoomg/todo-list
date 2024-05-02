@@ -30,15 +30,15 @@ class ActivityModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['check_out_date'] = this.checkOutDate;
-    data['todo_date'] = this.todoDate;
-    data['check_in_date'] = this.checkInDate;
-    data['remark'] = this.remark;
-    data['photo_lat'] = this.photoLat;
-    data['photo_long'] = this.photoLong;
-    data['has_order'] = this.hasOrder;
-    data['photo'] = this.photo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['check_out_date'] = checkOutDate;
+    data['todo_date'] = todoDate;
+    data['check_in_date'] = checkInDate;
+    data['remark'] = remark;
+    data['photo_lat'] = photoLat;
+    data['photo_long'] = photoLong;
+    data['has_order'] = hasOrder;
+    data['photo'] = photo;
     return data;
   }
 }

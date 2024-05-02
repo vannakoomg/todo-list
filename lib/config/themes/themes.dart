@@ -6,6 +6,9 @@ import 'package:googlemap_ui/config/const/app_colors.dart';
 // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
 ThemeData lightMode = ThemeData(
+  datePickerTheme: const DatePickerThemeData(
+    backgroundColor: Colors.orange,
+  ),
   textSelectionTheme: TextSelectionThemeData(
     selectionColor: AppColor.secondnaryColor.withOpacity(0.6),
   ),
@@ -15,16 +18,14 @@ ThemeData lightMode = ThemeData(
       width: 1.0,
     ),
   ),
-  colorScheme: ColorScheme.light(
-    background: AppColor.backgroundColor,
+  colorScheme: const ColorScheme.light(
+    background: Color.fromARGB(255, 255, 255, 255),
     primary: Colors.black,
-    secondary: Colors.white,
-    tertiary: const Color.fromARGB(255, 195, 195, 195),
-
-    ///--------------
-    onPrimary: const Color.fromARGB(255, 142, 142, 142),
-    onSecondary: const Color.fromARGB(255, 105, 105, 105),
-    onTertiary: const Color.fromARGB(255, 45, 45, 45),
+    secondary: Color.fromARGB(255, 209, 209, 209),
+    tertiary: Color.fromARGB(255, 27, 27, 27),
+    onPrimary: Color.fromARGB(255, 63, 63, 63),
+    onSecondary: Color.fromARGB(255, 170, 170, 170),
+    onTertiary: Color.fromARGB(255, 222, 222, 222),
   ),
   useMaterial3: true,
   brightness: Brightness.light,
@@ -33,45 +34,40 @@ ThemeData lightMode = ThemeData(
       color: AppColor.textFirst,
       fontSize: 20,
       fontWeight: FontWeight.bold,
-      fontFamily: "Siemreap",
     ),
     titleMedium: const TextStyle(
       fontSize: 18,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.bold,
     ),
     titleSmall: TextStyle(
       color: AppColor.textFirst,
       fontSize: 14,
-      fontWeight: FontWeight.w500,
-      fontFamily: "Siemreap",
+      fontWeight: FontWeight.bold,
     ),
     bodyLarge: TextStyle(
       color: AppColor.textFirst,
       fontSize: 15,
-      fontFamily: "Siemreap",
     ),
     bodyMedium: TextStyle(
       color: AppColor.textFirst,
       fontSize: 13,
-      fontFamily: "Siemreap",
     ),
     bodySmall: TextStyle(
       color: AppColor.textFirst,
       fontSize: 11,
-      fontFamily: "Siemreap",
     ),
   ),
 );
 
 ThemeData darkMode = ThemeData(
   colorScheme: const ColorScheme.dark(
-    background: Colors.black,
+    background: Color.fromARGB(255, 26, 26, 26),
     primary: Colors.white,
-    secondary: Color.fromARGB(255, 77, 77, 77),
+    secondary: Color.fromARGB(255, 101, 101, 101),
     tertiary: Color.fromARGB(255, 207, 207, 207),
     onPrimary: Color.fromARGB(255, 198, 198, 198),
-    onSecondary: Color.fromARGB(255, 111, 111, 111),
-    onTertiary: Color.fromARGB(255, 24, 24, 24),
+    onSecondary: Color.fromARGB(255, 68, 68, 68),
+    onTertiary: Color.fromARGB(255, 45, 45, 45),
   ),
   textSelectionTheme: TextSelectionThemeData(
     selectionColor: AppColor.secondnaryColor.withOpacity(0.6),
@@ -83,34 +79,28 @@ ThemeData darkMode = ThemeData(
       color: Colors.white,
       fontSize: 20,
       fontWeight: FontWeight.bold,
-      fontFamily: "Siemreap",
     ),
     titleMedium: TextStyle(
       fontSize: 18,
       color: Colors.white,
       fontWeight: FontWeight.w500,
-      fontFamily: "Siemreap",
     ),
     titleSmall: TextStyle(
       color: Colors.white,
       fontSize: 14,
       fontWeight: FontWeight.w500,
-      fontFamily: "Siemreap",
     ),
     bodyLarge: TextStyle(
       color: Colors.white,
       fontSize: 15,
-      fontFamily: "Siemreap",
     ),
     bodyMedium: TextStyle(
       color: Colors.white,
       fontSize: 12,
-      fontFamily: "Siemreap",
     ),
     bodySmall: TextStyle(
       color: Colors.white,
       fontSize: 11,
-      fontFamily: "Siemreap",
     ),
   ),
 );

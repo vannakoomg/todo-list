@@ -40,13 +40,14 @@ Future checkOutSale({
               'Authorization': 'Bearer $token',
             }))
         .then((value) {
+      debugPrint("value $value");
       Singleton.obj.isCheckOut.value = true;
       debugPrint("done--------------------------- $value");
     });
   } on DioError catch (e) {
     Singleton.obj.isCheckOut.value = false;
 
-    debugPrint("error--------------------------$e-");
+    debugPrint("error---------sdfdsfsf-----------------$e-");
   }
 }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
+import 'package:googlemap_ui/utils/fuction.dart';
 
 class CustomTodoCard extends StatelessWidget {
   final String name;
@@ -16,127 +18,83 @@ class CustomTodoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(15),
       width: double.infinity,
       clipBehavior: Clip.antiAlias,
-      height: 70,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: const Color.fromARGB(255, 180, 180, 180).withOpacity(0.5),
-            spreadRadius: 0.8,
-            blurRadius: 8,
-            offset: const Offset(1, -1), // changes position of shadow
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+            blurRadius: 18,
+            spreadRadius: 0.1,
           ),
         ],
+        color: Theme.of(context).colorScheme.background,
+        borderRadius: BorderRadius.circular(20),
       ),
-      child: Center(
-        child: Row(
-          children: [
-            Container(
-              width: 9,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleSmall),
+                Text(
+                  customer,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_sharp,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      size: 18,
+                    ),
+                    const Gap(5),
+                    Text(
+                      address == "" ? "NA" : address,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                          ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
               color: stuts == "todo"
                   ? Colors.grey
                   : stuts == "check-in"
-                      ? Colors.blue
+                      ? const Color.fromARGB(255, 113, 187, 247)
                       : stuts == "check-out"
-                          ? const Color.fromARGB(255, 237, 156, 34)
-                          : AppColor.successColor,
+                          ? const Color.fromARGB(255, 238, 181, 95)
+                          : AppColor.success,
+              borderRadius: BorderRadius.circular(15),
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Shop           : ",
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).colorScheme.onTertiary,
-                            ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          name,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.onTertiary,
-                              ),
-                        ),
-                      ),
-                    ],
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Text(
+              toTitleCase(stuts),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: stuts == "todo"
+                        ? const Color.fromARGB(255, 59, 58, 58)
+                        : stuts == "check-in"
+                            ? const Color.fromARGB(255, 14, 51, 82)
+                            : stuts == "check-out"
+                                ? const Color.fromARGB(255, 118, 82, 33)
+                                : AppColor.success,
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        "Customer   : ",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                            ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          customer,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Address      : ",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                            ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          address,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
             ),
-            Icon(
-              Icons.keyboard_double_arrow_right,
-              color: stuts == "todo"
-                  ? Colors.grey
-                  : stuts == "check-in"
-                      ? Colors.blue
-                      : stuts == "check-out"
-                          ? const Color.fromARGB(255, 237, 156, 34)
-                          : AppColor.successColor,
-            ),
-            const SizedBox(
-              width: 5,
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

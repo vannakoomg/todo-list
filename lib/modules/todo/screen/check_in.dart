@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:googlemap_ui/modules/todo/controller/check_in_controller.dart';
 import 'package:googlemap_ui/modules/todo/screen/simple_google_map.dart';
@@ -44,9 +45,8 @@ class _CheckInScreenState extends State<CheckInScreen> {
               appBar: const CustomAppBar(title: "Check In"),
               body: Container(
                   padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: BorderRadius.circular(10)),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   width: double.infinity,
                   margin: const EdgeInsets.only(
                       bottom: 10, right: 10, left: 10, top: 10),
@@ -61,14 +61,9 @@ class _CheckInScreenState extends State<CheckInScreen> {
                           children: [
                             Text(
                               "Shop Name",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onTertiary),
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
+                            const Gap(5),
                             Text(
                               widget.name,
                               style: Theme.of(context)
@@ -80,18 +75,13 @@ class _CheckInScreenState extends State<CheckInScreen> {
                                           .onPrimary),
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 30,
                             ),
                             Text(
                               "Address",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onTertiary),
+                              style: Theme.of(context).textTheme.titleSmall!,
                             ),
+                            const Gap(5),
                             Text(
                               controller.address.value,
                               style: Theme.of(context)

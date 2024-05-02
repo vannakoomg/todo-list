@@ -5,20 +5,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:googlemap_ui/config/const/app_colors.dart';
 import 'package:googlemap_ui/modules/checkOut/controller/kkkk.dart';
 import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart';
 import 'package:googlemap_ui/modules/todo/widgets/you_not_in_distance.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
+import 'package:googlemap_ui/utils/widgets/custom_alert.dart';
 
 import '../../../utils/single_ton.dart';
 
 class CheckOutController extends GetxController {
   final isShowCustomer = false.obs;
   final oldRemark = "".obs;
-  final oldHasOrder = false.obs;
   final homeController = Get.put(HomeController());
-  final hasOrder = false.obs;
   final remark = ''.obs;
   final remarkText = TextEditingController().obs;
   final photo = File('').obs;
@@ -37,9 +35,7 @@ class CheckOutController extends GetxController {
   }
 
   bool validateUpdate() {
-    if ((oldRemark.value == remark.value &&
-            oldHasOrder.value == hasOrder.value &&
-            photo.value.path == "") ||
+    if ((oldRemark.value == remark.value && photo.value.path == "") ||
         remark.value == "") {
       return true;
     } else {
@@ -59,7 +55,7 @@ class CheckOutController extends GetxController {
     required int checkInId,
     required BuildContext context,
   }) async {
-    unFocus(context);
+    unFocus();
     if (currentlat.value == 0) {
       isloading.value = true;
       await getCurrentLocation();
@@ -71,63 +67,36 @@ class CheckOutController extends GetxController {
       distance.value = 1;
     }
     debugPrint("distance $distance");
-    if (distance.value < 70) {
+    if (distance.value < homeController.gpsRange.value) {
       isloading.value = true;
-      if (hasOrder.value) {
-        try {
-          await checkOutSaleWithOrder(
-            lat: currentlat.value,
-            long: currentlng.value,
-            checkInId: checkInId,
-            file: photo.value,
-            remark: remark.value,
-          ).then((value) {});
-          homeController.saleData.value.data![homeController.indexOfSale.value]
-              .status = "check-out-order";
-        } catch (value) {
-          debugPrint("you on cahlkaflkasjflksadjlf");
-        }
-      } else {
-        await checkOutSale(
-          lat: currentlat.value,
-          long: currentlng.value,
-          checkInId: checkInId,
-          file: photo.value,
-          remark: remark.value,
-        ).then((value) {});
-        homeController.saleData.value.data![homeController.indexOfSale.value]
-            .status = "check-out";
-      }
+      await checkOutSale(
+        lat: currentlat.value,
+        long: currentlng.value,
+        checkInId: checkInId,
+        file: photo.value,
+        remark: remark.value,
+      ).then((value) {});
+      homeController.saleData.value.data![homeController.indexOfSale.value]
+          .status = "check-out";
+
       if (Singleton.obj.isCheckOut.value == true) {
-        homeController.saleData.refresh();
-        remark.value = '';
-        remarkText.value.text = '';
-        photo.value = File('');
-        hasOrder.value = false;
-        Get.back();
+        CustomDialog.success(
+            barrierDismissible: false,
+            title: "success",
+            message: "you check out successfully",
+            ontap: () {
+              homeController.saleData.refresh();
+              remark.value = '';
+              remarkText.value.text = '';
+              photo.value = File('');
+              Get.back();
+              Get.back();
+            });
       } else {
-        Get.defaultDialog(
-            titlePadding: const EdgeInsets.only(top: 20),
-            contentPadding:
-                const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-            title: "OOPS !",
-            titleStyle: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: AppColor.dangerColor),
-            content: Column(
-              children: [
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "SOMETHING WENT WRONG PLEASE TRY AGAIN",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.onSecondary),
-                ),
-              ],
-            ));
+        CustomDialog.error(
+          title: "OOPS !",
+          message: "SOMETHING WENT WRONG PLEASE TRY AGAIN",
+        );
       }
       isloading.value = false;
     } else {

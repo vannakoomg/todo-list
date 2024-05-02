@@ -10,8 +10,8 @@ import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart
 import 'package:googlemap_ui/modules/home_screen/model/sale_model.dart';
 import 'package:googlemap_ui/modules/todo/models/customer_model.dart';
 import 'package:googlemap_ui/modules/todo/screen/map_detail.dart';
+import 'package:googlemap_ui/utils/widgets/custom_alert.dart';
 
-import '../../../config/const/app_colors.dart';
 import '../../../helpers/local_storage.dart';
 import '../widgets/allow_location.dart';
 import '../widgets/you_not_in_distance.dart';
@@ -38,7 +38,7 @@ class ChcekinController extends GetxController {
       }
       double disabled = Geolocator.distanceBetween(
           shopLat, shopLong, currentlat.value, currentlng.value);
-      if (disabled < 70) {
+      if (disabled < homeController.gpsRange.value) {
         checkInActivity(checkInID).then((value) {
           homeController.saleData.value.data![homeController.indexOfSale.value]
               .status = "check-in";
@@ -136,27 +136,29 @@ class ChcekinController extends GetxController {
   }
 
   // customer
-  final customer = CustomerModel().obs;
+  // final customer = CustomerModel().obs;
   final selectIndex = 1000.obs;
   final shopName = ''.obs;
   final shopLat = 0.0.obs;
   final shopLong = 0.0.obs;
   final paraterId = 0.obs;
-  Future fetchCustomer() async {
-    isloading.value = true;
-    ApiBaseHelper.apiBaseHelper
-        .onNetworkRequesting(
-            url: "/ppm_sale/api/fetch_customer",
-            methode: METHODE.post,
-            isAuthorize: true)
-        .then((value) {
-      customer.value = CustomerModel.fromJson(value);
-      isloading.value = false;
-    }).onError((error, stackTrace) {
-      isloading.value = false;
-      debugPrint("eroor $error");
-    });
-  }
+  // final customer = OrderCustomModel().obs;
+
+  // Future fetchCustomer() async {
+  //   isloading.value = true;
+  //   ApiBaseHelper.apiBaseHelper
+  //       .onNetworkRequesting(
+  //           url: "/ppm_sale/api/fetch_customer",
+  //           methode: METHODE.post,
+  //           isAuthorize: true)
+  //       .then((value) {
+  //     customer.value = CustomerModel.fromJson(value);
+  //     isloading.value = false;
+  //   }).onError((error, stackTrace) {
+  //     isloading.value = false;
+  //     debugPrint("eroor $error");
+  //   });
+  // }
 
   void onselected(
       int index, String name, double lat, double long, int parater) async {
@@ -181,7 +183,7 @@ class ChcekinController extends GetxController {
     isShowCustomer.value = false;
     isloading.value = true;
     final userId = await LocalStorage.getIntValue(key: "user_id");
-    debugPrint("$paraterId $userId");
+    debugPrint("ssssssss$paraterId $userId");
 
     ApiBaseHelper.apiBaseHelper
         .onNetworkRequesting(
@@ -190,6 +192,7 @@ class ChcekinController extends GetxController {
       isAuthorize: true,
     )
         .then((value) {
+      debugPrint("value $value");
       homeController.saleData.value.data!.insert(
         0,
         Sale(
@@ -223,30 +226,11 @@ class ChcekinController extends GetxController {
       isloading.value = false;
     }).onError((error, stackTrace) {
       isloading.value = false;
-      Get.defaultDialog(
-          titlePadding: const EdgeInsets.only(top: 20),
-          contentPadding:
-              const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-          title: "OOPS !",
-          titleStyle: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .copyWith(color: AppColor.dangerColor),
-          content: Column(
-            children: [
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "SOMETHING WENT WRONG PLEASE TRY AGAIN",
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(color: Theme.of(context).colorScheme.onSecondary),
-              ),
-            ],
-          ));
+
+      CustomDialog.error(
+        message: "SOMETHING WENT WRONG PLEASE TRY AGAIN",
+        title: "OOPS !",
+      );
       debugPrint("errrrorrr $error");
     });
   }

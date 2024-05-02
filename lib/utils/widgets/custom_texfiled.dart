@@ -1,50 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:googlemap_ui/config/const/app_colors.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextfiled extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final Function onChanged;
+  final Function? onChanged;
   final int maxLines;
+  final bool readOnly;
+  final FocusNode? focusNode;
+  final TextInputType keyboardType;
+  final int maxLength;
+  final Color? borderColor;
+  final Color? fillColor;
+  final Widget suffixIcon;
+  final TextAlign textAlign;
+  final bool autofocus;
+  final List<TextInputFormatter>? inputFormatters;
   const CustomTextfiled({
     super.key,
     required this.controller,
     required this.hintText,
-    required this.onChanged,
-    required this.maxLines,
+    this.focusNode,
+    this.fillColor,
+    this.onChanged,
+    this.textAlign = TextAlign.left,
+    this.maxLength = 100,
+    this.autofocus = false,
+    this.keyboardType = TextInputType.text,
+    this.maxLines = 1,
+    this.inputFormatters,
+    this.suffixIcon = const SizedBox(),
+    this.readOnly = false,
+    this.borderColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textAlign: textAlign,
+      focusNode: focusNode,
+      autofocus: autofocus,
+      maxLength: maxLength,
+      readOnly: readOnly,
       controller: controller,
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: Theme.of(context).colorScheme.onPrimary,
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            color: Theme.of(context).colorScheme.primary,
           ),
       onChanged: (value) {
-        onChanged(value);
+        if (onChanged != null) {
+          onChanged!(value);
+        }
       },
       decoration: InputDecoration(
+        fillColor: fillColor ?? Theme.of(context).colorScheme.onTertiary,
+        filled: true,
+        counterText: "",
         contentPadding: const EdgeInsets.all(10),
         isDense: true,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColor.secondnaryColor,
+          borderSide: const BorderSide(
+            width: 0.5,
+            color: Colors.transparent,
           ),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(10),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
-            color: AppColor.secondnaryColor,
+            color: borderColor ?? Theme.of(context).colorScheme.onSecondary,
           ),
+        ),
+        suffixIcon: Container(
+          padding: const EdgeInsets.only(right: 10),
+          child: suffixIcon,
+        ),
+        suffixIconConstraints: const BoxConstraints(
+          maxHeight: 25,
+          maxWidth: 25,
         ),
         hintText: hintText,
         hintStyle: Theme.of(context)
             .textTheme
-            .bodyMedium!
-            .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+            .bodyLarge!
+            .copyWith(color: Theme.of(context).colorScheme.primary),
       ),
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters ?? [],
       maxLines: maxLines,
     );
   }

@@ -44,9 +44,11 @@ class Sale {
   String? photoLong;
   bool? hasOrder;
   String? remark;
+  double? gpsRange;
 
   Sale(
       {this.id,
+      this.gpsRange,
       this.customerName,
       this.partnerId,
       this.userId,
@@ -82,6 +84,7 @@ class Sale {
     photoLong = json['photo_long'];
     hasOrder = json['has_order'];
     remark = json['remark'];
+    gpsRange = json['gps_range'];
   }
 
   Map<String, dynamic> toJson() {
@@ -103,6 +106,7 @@ class Sale {
     data['photo_long'] = photoLong;
     data['has_order'] = hasOrder;
     data['remark'] = remark;
+    data['gps_range'] = gpsRange;
     return data;
   }
 }

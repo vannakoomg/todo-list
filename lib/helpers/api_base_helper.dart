@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:googlemap_ui/modules/login/screen/login_screen.dart';
+import 'package:googlemap_ui/utils/widgets/custom_alert.dart';
 import 'local_storage.dart';
 import 'url.dart';
 
@@ -34,7 +35,6 @@ class ApiBaseHelper {
   }) async {
     final token = await LocalStorage.getStringValue(key: 'access_token');
     final fullUrl = base == '' ? baseUrl + url : base + url;
-    debugPrint("body $fullUrl");
     Map<String, String> headerDefault = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -49,7 +49,11 @@ class ApiBaseHelper {
         case METHODE.post:
           final response = await dio.post(
             fullUrl,
-            options: Options(headers: header ?? headerDefault),
+            options: Options(
+              headers: header ?? headerDefault,
+              sendTimeout: const Duration(minutes: 2),
+              followRedirects: false,
+            ),
             data: body ?? {},
           );
           return _returnResponse(response);
@@ -67,13 +71,22 @@ class ApiBaseHelper {
           break;
       }
     } catch (e) {
-      debugPrint("On catch api ");
+      debugPrint("On catch api $fullUrl");
+      // CustomDialog.info(
+      //   barrierDismissible: false,
+      //   title: "Oops!",
+      //   message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
+      //   // ontap: () async {
+      //   // await LocalStorage.storeData(key: "access_token", value: "");
+      //   // Get.to(LoginScreen());
+      //   // },
+      // );
       return Future.error(e);
     }
   }
 
   dynamic _returnResponse(Response response) async {
-    debugPrint("statusCode ${response.statusCode}");
+    debugPrint("api code : ${response.statusCode}");
     switch (response.statusCode) {
       case 200:
         return response.data;
@@ -82,19 +95,43 @@ class ApiBaseHelper {
       case 202:
         return response.data;
       case 404:
-        return Future.error(ErrorModel(
-            statusCode: response.statusCode, bodyString: response.data!));
+        return Future.error(
+          ErrorModel(
+            statusCode: response.statusCode,
+            bodyString: response.data!,
+          ),
+        );
       case 400:
+        CustomDialog.info(
+            barrierDismissible: false,
+            title: "Oops!",
+            message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
+            ontap: () async {
+              await LocalStorage.storeData(key: "access_token", value: "");
+              Get.to(LoginScreen());
+            });
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));
       case 401:
-        await LocalStorage.storeData(key: "access_token", value: "");
-        Get.to(const LoginScreen());
+        CustomDialog.info(
+            barrierDismissible: false,
+            title: "Oops!",
+            message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
+            ontap: () async {
+              await LocalStorage.storeData(key: "access_token", value: "");
+              Get.to(LoginScreen());
+            });
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));
       case 403:
-        await LocalStorage.storeData(key: "access_token", value: "");
-        Get.to(const LoginScreen());
+        CustomDialog.info(
+            barrierDismissible: false,
+            title: "Oops!",
+            message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
+            ontap: () async {
+              await LocalStorage.storeData(key: "access_token", value: "");
+              Get.to(LoginScreen());
+            });
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));
       case 422:

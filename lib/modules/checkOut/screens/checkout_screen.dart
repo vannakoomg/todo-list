@@ -42,7 +42,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     return Obx(() => Stack(
           children: [
             Scaffold(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
+              backgroundColor: Theme.of(context).colorScheme.background,
               appBar: const CustomAppBar(title: "Check Out"),
               body: Container(
                 margin: const EdgeInsets.only(
@@ -67,7 +67,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall!
-                                        .copyWith(color: AppColor.dangerColor),
+                                        .copyWith(color: AppColor.danger),
                                   ),
                                 ],
                               ),
@@ -97,7 +97,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall!
-                                        .copyWith(color: AppColor.dangerColor),
+                                        .copyWith(color: AppColor.danger),
                                   ),
                                 ],
                               ),
@@ -111,11 +111,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ? Container(
                                           height: 50,
                                           decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                             borderRadius:
-                                                BorderRadius.circular(5),
-                                            border: Border.all(
-                                              color: AppColor.secondnaryColor,
-                                            ),
+                                                BorderRadius.circular(10),
                                           ),
                                           child: Center(
                                               child: Text(
@@ -154,24 +154,24 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         ),
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Has Order",
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall,
-                                  ),
-                                  Checkbox(
-                                    value: controller.hasOrder.value,
-                                    activeColor: AppColor.successColor,
-                                    checkColor: Colors.white,
-                                    onChanged: (bool? value) {
-                                      controller.hasOrder.value =
-                                          !controller.hasOrder.value;
-                                    },
-                                  ),
-                                ],
-                              ),
+                              // Row(
+                              //   children: [
+                              //     Text(
+                              //       "Has Order",
+                              //       style:
+                              //           Theme.of(context).textTheme.titleSmall,
+                              //     ),
+                              //     Checkbox(
+                              //       value: controller.hasOrder.value,
+                              //       activeColor: AppColor.successColor,
+                              //       checkColor: Colors.white,
+                              //       onChanged: (bool? value) {
+                              //         controller.hasOrder.value =
+                              //             !controller.hasOrder.value;
+                              //       },
+                              //     ),
+                              //   ],
+                              // ),
                             ]),
                       ),
                     ),

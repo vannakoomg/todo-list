@@ -97,7 +97,7 @@ class _ReportCheckOutState extends State<ReportCheckOut> {
                                 ),
                                 Checkbox(
                                   value: controller.activity.value.hasOrder,
-                                  activeColor: AppColor.successColor,
+                                  activeColor: AppColor.success,
                                   checkColor: Colors.white,
                                   onChanged: (value) {},
                                 ),

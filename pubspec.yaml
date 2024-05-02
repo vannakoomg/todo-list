@@ -50,10 +50,17 @@ dependencies:
   device_info_plus: ^9.1.2
   crypto: ^3.0.3
   encrypt: ^5.0.3
+  sizer: ^2.0.13
+  http: ^1.2.1
   geocoding: ^2.0.2
   http_parser: ^4.0.0
   flutter_native_splash: ^2.3.10
   flutter_image_compress: ^2.1.0
+  table_calendar: ^3.1.1
+  gap: ^3.0.1
+  flutter_typeahead: ^5.2.0
+  loading_animation_widget: ^1.2.1
+
 
 
 
@@ -70,8 +77,8 @@ dev_dependencies:
 flutter_native_splash:
   android: true
   ios: true
-  color: "#208b3a"
-  image: images/splash_screen.png
+  color: "#FFCD8F"
+  image: images/logo.png
 
 
 

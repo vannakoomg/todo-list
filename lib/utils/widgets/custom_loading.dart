@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CustomLoading extends StatelessWidget {
-  const CustomLoading({super.key});
+  final Color? colors;
+  const CustomLoading({super.key, this.colors});
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +13,13 @@ class CustomLoading extends StatelessWidget {
       height: 50,
       width: 50,
       decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
+        // color: ,
         shape: BoxShape.circle,
       ),
       child: Center(
-          child: CircularProgressIndicator(
-        strokeWidth: 4,
+          child: LoadingAnimationWidget.fourRotatingDots(
         color: AppColor.secondnaryColor,
+        size: 40,
       )),
     );
   }

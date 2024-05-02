@@ -8,17 +8,23 @@ class CustomButtom extends StatelessWidget {
   final double fountSize;
   final double height;
   final double white;
-  final Color colors;
+  final Color? colors;
   final Color textColors;
   final Color borderColor;
+  final bool outline;
+  final double radius;
+  final IconData? icon;
   const CustomButtom({
     super.key,
     required this.title,
     required this.onTap,
     this.height = 40,
+    this.radius = 10,
     this.white = 80,
+    this.outline = false,
+    this.icon,
     this.textColors = Colors.white,
-    this.colors = const Color(0xff208b3a),
+    this.colors,
     this.borderColor = Colors.transparent,
     this.disble = false,
     this.fountSize = 16,
@@ -33,23 +39,39 @@ class CustomButtom extends StatelessWidget {
       child: AnimatedContainer(
         width: white,
         decoration: BoxDecoration(
-          color: disble == false ? colors : AppColor.textThird,
-          borderRadius: BorderRadius.circular(10),
+          color: outline == false
+              ? disble == true
+                  ? Theme.of(context).colorScheme.onSecondary
+                  : colors ?? AppColor.secondnaryColor
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(
+            radius,
+          ),
           border: Border.all(
-            color: borderColor,
+            color: outline == false
+                ? borderColor
+                : colors ?? AppColor.secondnaryColor,
           ),
         ),
         height: height,
         curve: Curves.easeIn,
         duration: const Duration(milliseconds: 150),
         child: Center(
-          child: Text(
-            "$title",
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(color: textColors, fontSize: fountSize),
-          ),
+          child: icon != null
+              ? Icon(
+                  icon,
+                  color: Colors.white,
+                  size: 19,
+                )
+              : Text(
+                  "$title",
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: outline == false
+                            ? textColors
+                            : colors ?? AppColor.secondnaryColor,
+                        fontSize: fountSize,
+                      ),
+                ),
         ),
       ),
     );

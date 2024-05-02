@@ -1,13 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
+import 'package:googlemap_ui/modules/order/controller/create_order_controller.dart';
 import 'package:googlemap_ui/utils/widgets/custom_loading.dart';
 
+import '../../../utils/fuction.dart';
 import '../../../utils/widgets/custom_app.dart';
 import '../../../utils/widgets/custom_buttom.dart';
+import '../../../utils/widgets/custom_search_selecte.dart';
+import '../../../utils/widgets/custom_texfiled.dart';
+import '../../order/models/customer_model.dart';
 import '../controller/check_in_controller.dart';
 
 class CheckInNonCustomerScreen extends StatefulWidget {
@@ -20,21 +27,21 @@ class CheckInNonCustomerScreen extends StatefulWidget {
 
 class _CheckInNonCustomerScreenState extends State<CheckInNonCustomerScreen> {
   final controller = ChcekinController();
-
+  final ordercontroller = CreateOrderController();
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   double lat = 0;
   double long = 0;
   @override
   void initState() {
-    controller.fetchCustomer();
+    ordercontroller.fetchCustomer('');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: const CustomAppBar(title: "Check In"),
         body: Obx(
           () => Container(
@@ -51,13 +58,7 @@ class _CheckInNonCustomerScreenState extends State<CheckInNonCustomerScreen> {
                             children: [
                               Text(
                                 "Shop Name",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onTertiary),
+                                style: Theme.of(context).textTheme.titleSmall,
                               ),
                               const SizedBox(
                                 height: 5,
@@ -79,182 +80,65 @@ class _CheckInNonCustomerScreenState extends State<CheckInNonCustomerScreen> {
                                     ),
                                     child: Column(
                                       children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            if (!controller.isloading.value) {
-                                              controller.isShowCustomer.value =
-                                                  !controller
-                                                      .isShowCustomer.value;
-                                            }
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.only(
-                                                left: 10, right: 5),
-                                            alignment: Alignment.centerLeft,
-                                            color:
-                                                controller.shopName.value == ""
-                                                    ? AppColor.textThird
-                                                    : const Color.fromARGB(
-                                                        255, 138, 191, 138),
-                                            height: 50,
-                                            width: double.infinity,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                controller.isloading.value &&
-                                                        controller.customer
-                                                                .value.data ==
-                                                            null
-                                                    ? const SizedBox(
-                                                        height: 25,
-                                                        width: 25,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          strokeWidth: 2,
-                                                        ),
-                                                      )
-                                                    : Expanded(
-                                                        child: Text(
-                                                          controller.shopName
-                                                                      .value ==
-                                                                  ""
-                                                              ? "NA"
-                                                              : controller
-                                                                  .shopName
-                                                                  .value,
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .bodyLarge!
-                                                              .copyWith(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                        ),
-                                                      ),
-                                                AnimatedRotation(
-                                                  curve: Curves.easeInOutCirc,
-                                                  duration: const Duration(
-                                                      milliseconds: 250),
-                                                  turns: controller
-                                                          .isShowCustomer.value
-                                                      ? -0.50
-                                                      : 0,
-                                                  child: const Icon(Icons
-                                                      .keyboard_double_arrow_down_rounded),
-                                                )
-                                              ],
+                                        TypeAheadField<OrderCustomer?>(
+                                          controller: TextEditingController(
+                                            text: controller.shopName.value,
+                                          ),
+                                          emptyBuilder: (context) => Container(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Text(
+                                              'Not found!',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(
+                                                      color: AppColor.danger),
                                             ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          child:
-                                              controller.customer.value.data !=
-                                                      null
-                                                  ? SingleChildScrollView(
-                                                      child: Column(
-                                                        children: controller
-                                                            .customer
-                                                            .value
-                                                            .data!
-                                                            .asMap()
-                                                            .entries
-                                                            .map((e) {
-                                                          return GestureDetector(
-                                                            onTap: () async {
-                                                              controller
-                                                                  .onselected(
-                                                                e.key,
-                                                                e.value.name ??
-                                                                    "",
-                                                                double.parse(
-                                                                    "${e.value.lat!}"),
-                                                                double.parse(
-                                                                    "${e.value.long!}"),
-                                                                e.value.id ?? 0,
-                                                              );
-                                                              Future.delayed(
-                                                                  const Duration(
-                                                                      milliseconds:
-                                                                          300),
-                                                                  () async {
-                                                                final GoogleMapController
-                                                                    mapcontroller =
-                                                                    await _controller
-                                                                        .future;
-                                                                if (e.value
-                                                                        .lat ==
-                                                                    0) {
-                                                                  await mapcontroller
-                                                                      .moveCamera(
-                                                                    CameraUpdate
-                                                                        .newCameraPosition(
-                                                                      CameraPosition(
-                                                                        target: LatLng(
-                                                                            double.parse("${e.value.lat!}"),
-                                                                            double.parse("${e.value.long!}")),
-                                                                        zoom:
-                                                                            14.4746,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                } else {
-                                                                  await mapcontroller
-                                                                      .animateCamera(
-                                                                    CameraUpdate
-                                                                        .newCameraPosition(
-                                                                      CameraPosition(
-                                                                        target: LatLng(
-                                                                            double.parse("${e.value.lat!}"),
-                                                                            double.parse("${e.value.long!}")),
-                                                                        zoom:
-                                                                            14.4746,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                      color: controller.selectIndex.value == e.key
-                                                                          ? AppColor
-                                                                              .secondnaryColor
-                                                                          : Colors.green[
-                                                                              50],
-                                                                      border:
-                                                                          Border(
-                                                                        top:
-                                                                            BorderSide(
-                                                                          width:
-                                                                              0.5,
-                                                                          color: e.key == 0
-                                                                              ? Colors.transparent
-                                                                              : AppColor.secondnaryColor,
-                                                                        ),
-                                                                      )),
-                                                              alignment: Alignment
-                                                                  .centerLeft,
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      left: 10,
-                                                                      right:
-                                                                          10),
-                                                              height: 50,
-                                                              width: double
-                                                                  .infinity,
-                                                              child: Text(
-                                                                  "${e.value.name}"),
-                                                            ),
-                                                          );
-                                                        }).toList(),
-                                                      ),
-                                                    )
-                                                  : const SizedBox(),
+                                          suggestionsCallback: (pattern) async {
+                                            return ordercontroller
+                                                .getSuggestions(pattern);
+                                          },
+                                          builder: (context, controller1,
+                                              focusNode) {
+                                            return CustomTextfiled(
+                                              onChanged: (value) {
+                                                ordercontroller
+                                                    .fetchCustomer(value);
+                                              },
+                                              controller: controller1,
+                                              hintText: "",
+                                              focusNode: focusNode,
+                                              suffixIcon: const Icon(
+                                                Icons.arrow_downward_rounded,
+                                              ),
+                                            );
+                                          },
+                                          itemBuilder: (context,
+                                              OrderCustomer? suggestion) {
+                                            if (suggestion == null) {
+                                              return const SizedBox.shrink();
+                                            }
+                                            final index = ordercontroller
+                                                .customer.value.data!
+                                                .indexOf(suggestion);
+                                            return CustomSearchSelect(
+                                              index: index,
+                                              title: "${suggestion.name}",
+                                            );
+                                          },
+                                          onSelected: (OrderCustomer? value) {
+                                            // ordercontroller.customName.value =
+                                            //     value!.name!;
+                                            //      ordercontroller.customerId.value =
+                                            //     value.id!;
+                                            controller.shopName.value =
+                                                value!.name!;
+                                            controller.paraterId.value =
+                                                value.id!;
+
+                                            unFocus();
+                                          },
                                         ),
                                       ],
                                     ),
@@ -264,16 +148,10 @@ class _CheckInNonCustomerScreenState extends State<CheckInNonCustomerScreen> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(
-                                "Address",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onTertiary),
-                              ),
+                              Text("Address",
+                                  style:
+                                      Theme.of(context).textTheme.titleSmall),
+                              const Gap(10),
                               Text(
                                 controller.address.value == ""
                                     ? "Not Found"
@@ -329,9 +207,6 @@ class _CheckInNonCustomerScreenState extends State<CheckInNonCustomerScreen> {
                                       width: double.infinity,
                                       height: 200,
                                       decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 0.8,
-                                            color: AppColor.secondnaryColor),
                                         borderRadius: BorderRadius.circular(8),
                                         color: Colors.transparent,
                                       ),
@@ -367,7 +242,7 @@ class _CheckInNonCustomerScreenState extends State<CheckInNonCustomerScreen> {
                     ],
                   ),
                   if (controller.isloading.value &&
-                      controller.customer.value.data != null)
+                      ordercontroller.customer.value.data != null)
                     Expanded(
                         child: Container(
                       color: Colors.transparent,
