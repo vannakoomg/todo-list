@@ -15,10 +15,14 @@ class ReportCheckOut extends StatefulWidget {
 }
 
 class _ReportCheckOutState extends State<ReportCheckOut> {
-  final controller = Get.put(ActivityController());
+  final controller = ActivityController();
   @override
   void initState() {
-    controller.fetchActivityDetail(widget.id);
+    controller.isloading.value = true;
+    Future.delayed(const Duration(milliseconds: 100), () {
+      controller.fetchActivityDetail(widget.id);
+    });
+
     super.initState();
   }
 
@@ -32,14 +36,14 @@ class _ReportCheckOutState extends State<ReportCheckOut> {
           height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.onTertiary,
             borderRadius: BorderRadius.circular(10),
           ),
           margin:
               const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
           padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
           child: controller.isloading.value
-              ? const CustomLoading()
+              ? const Center(child: CustomLoading())
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -89,20 +93,20 @@ class _ReportCheckOutState extends State<ReportCheckOut> {
                             //   },
                             //   maxLines: 5,
                             // ),
-                            Row(
-                              children: [
-                                Text(
-                                  "Has Order",
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                                Checkbox(
-                                  value: controller.activity.value.hasOrder,
-                                  activeColor: AppColor.success,
-                                  checkColor: Colors.white,
-                                  onChanged: (value) {},
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     Text(
+                            //       "Has Order",
+                            //       style: Theme.of(context).textTheme.titleSmall,
+                            //     ),
+                            //     Checkbox(
+                            //       value: controller.activity.value.hasOrder,
+                            //       activeColor: AppColor.success,
+                            //       checkColor: Colors.white,
+                            //       onChanged: (value) {},
+                            //     ),
+                            //   ],
+                            // ),
                             const SizedBox(
                               height: 5,
                             ),

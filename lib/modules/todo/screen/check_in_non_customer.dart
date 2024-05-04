@@ -69,9 +69,7 @@ class _CheckInNonCustomerScreenState extends State<CheckInNonCustomerScreen> {
                                     curve: Curves.easeInOutCirc,
                                     clipBehavior: Clip.antiAlias,
                                     width: MediaQuery.sizeOf(context).width,
-                                    height: controller.isShowCustomer.value
-                                        ? 250
-                                        : 50,
+                                    height: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
@@ -127,15 +125,51 @@ class _CheckInNonCustomerScreenState extends State<CheckInNonCustomerScreen> {
                                               title: "${suggestion.name}",
                                             );
                                           },
-                                          onSelected: (OrderCustomer? value) {
-                                            // ordercontroller.customName.value =
-                                            //     value!.name!;
-                                            //      ordercontroller.customerId.value =
-                                            //     value.id!;
+                                          onSelected:
+                                              (OrderCustomer? value) async {
                                             controller.shopName.value =
                                                 value!.name!;
                                             controller.paraterId.value =
                                                 value.id!;
+                                            debugPrint(
+                                                "${value.lat}${value.long}");
+                                            controller.onselected(
+                                              value.id!,
+                                              value.name ?? "",
+                                              double.parse("${value.lat!}"),
+                                              double.parse("${value.long!}"),
+                                              value.id ?? 0,
+                                            );
+                                            final GoogleMapController
+                                                mapcontroller =
+                                                await _controller.future;
+                                            if (value.lat == 0) {
+                                              await mapcontroller.moveCamera(
+                                                CameraUpdate.newCameraPosition(
+                                                  CameraPosition(
+                                                    target: LatLng(
+                                                        double.parse(
+                                                            "${value.lat!}"),
+                                                        double.parse(
+                                                            "${value.long!}")),
+                                                    zoom: 14.4746,
+                                                  ),
+                                                ),
+                                              );
+                                            } else {
+                                              await mapcontroller.animateCamera(
+                                                CameraUpdate.newCameraPosition(
+                                                  CameraPosition(
+                                                    target: LatLng(
+                                                        double.parse(
+                                                            "${value.lat!}"),
+                                                        double.parse(
+                                                            "${value.long!}")),
+                                                    zoom: 14.4746,
+                                                  ),
+                                                ),
+                                              );
+                                            }
 
                                             unFocus();
                                           },

@@ -363,15 +363,13 @@ class _CreateOrderScreemState extends State<CreateOrderScreem> {
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                            const Gap(10),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Price",
+                                    "FOC",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
@@ -381,9 +379,12 @@ class _CreateOrderScreemState extends State<CreateOrderScreem> {
                                                 .onSecondary),
                                   ),
                                   CustomTextfiled(
-                                    readOnly: true,
-                                    controller: controller.priceText.value,
-                                    hintText: controller.priceText.value.text,
+                                    keyboardType: TextInputType.number,
+                                    controller: controller.focText.value,
+                                    hintText: "",
+                                    onChanged: (value) {
+                                      controller.foc.value = value;
+                                    },
                                   ),
                                 ],
                               ),
@@ -425,13 +426,15 @@ class _CreateOrderScreemState extends State<CreateOrderScreem> {
                                 ],
                               ),
                             ),
-                            const Gap(10),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Foc",
+                                    "Price",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
@@ -441,12 +444,9 @@ class _CreateOrderScreemState extends State<CreateOrderScreem> {
                                                 .onSecondary),
                                   ),
                                   CustomTextfiled(
-                                    keyboardType: TextInputType.number,
-                                    controller: controller.focText.value,
-                                    hintText: "",
-                                    onChanged: (value) {
-                                      controller.foc.value = value;
-                                    },
+                                    readOnly: true,
+                                    controller: controller.priceText.value,
+                                    hintText: controller.priceText.value.text,
                                   ),
                                 ],
                               ),
@@ -526,7 +526,7 @@ class _CreateOrderScreemState extends State<CreateOrderScreem> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    "Dis",
+                                    "FOC",
                                     style:
                                         Theme.of(context).textTheme.titleSmall,
                                   ),
@@ -535,7 +535,7 @@ class _CreateOrderScreemState extends State<CreateOrderScreem> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    "Foc",
+                                    "Dis",
                                     style:
                                         Theme.of(context).textTheme.titleSmall,
                                   ),
@@ -603,7 +603,7 @@ class _CreateOrderScreemState extends State<CreateOrderScreem> {
                                 Expanded(
                                     child: Center(
                                         child: Text(
-                                  "${e.value.discount}%",
+                                  "${e.value.foc}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
@@ -616,7 +616,7 @@ class _CreateOrderScreemState extends State<CreateOrderScreem> {
                                 Expanded(
                                     child: Center(
                                         child: Text(
-                                  "${e.value.foc}",
+                                  "${e.value.discount}%",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!

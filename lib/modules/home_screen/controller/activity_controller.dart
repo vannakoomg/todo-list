@@ -19,7 +19,9 @@ class ActivityController extends GetxController {
       activity.value = ActivityModel.fromJson(value["data"]);
       isloading.value = false;
     }).onError((error, stackTrace) {
-      isloading.value = false;
+      fetchActivityDetail(id);
+      debugPrint("kkkkkk $error");
+      // isloading.value = false;
     });
   }
 }

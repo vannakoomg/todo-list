@@ -64,10 +64,10 @@ class CheckOutController extends GetxController {
       distance.value = Geolocator.distanceBetween(
           shoplat.value, shoplong.value, currentlat.value, currentlng.value);
     } else {
-      distance.value = 1;
+      distance.value = 0;
     }
-    debugPrint("distance $distance");
-    if (distance.value < homeController.gpsRange.value) {
+    debugPrint("distance $distance  ${homeController.gpsRange.value}");
+    if (distance.value <= homeController.gpsRange.value) {
       isloading.value = true;
       await checkOutSale(
         lat: currentlat.value,

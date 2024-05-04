@@ -86,9 +86,11 @@ class ChcekinController extends GetxController {
   }
 
   Future getaddress(double lat, double long) async {
+    debugPrint("$lat $long");
     await getAddressFromLatLng(lat, long).then(
       (value) {
         address.value = value;
+        debugPrint("dkdkdkdk ${address.value}");
       },
     ).onError(
       (error, stackTrace) {

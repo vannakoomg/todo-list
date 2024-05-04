@@ -48,8 +48,6 @@ class CustomerController extends GetxController {
       );
       currentlat.value = location.latitude;
       currentlng.value = location.longitude;
-      // currentlat.value = 11.561278778328456;
-      // currentlng.value = 104.92615608061244;
     }
   }
 
