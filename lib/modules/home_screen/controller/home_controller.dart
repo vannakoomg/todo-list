@@ -95,6 +95,7 @@ class HomeController extends GetxController {
   final userInfo = UserInfoModel().obs;
   final dateSelected = "".obs;
   void fetchUserInfo() async {
+    isloading.value = true;
     await ApiBaseHelper.apiBaseHelper
         .onNetworkRequesting(
           url: "/ppm_sale/api/user/info",
@@ -102,10 +103,12 @@ class HomeController extends GetxController {
           isAuthorize: true,
         )
         .onError((error, stackTrace) => {
+              isloading.value = false,
               debugPrint("kkkkkkkkkkkk"),
             })
         .then(
           (value) => {
+            isloading.value = false,
             userInfo.value = UserInfoModel.fromJson(value),
           },
         );

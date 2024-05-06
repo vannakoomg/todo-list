@@ -32,12 +32,9 @@ class LoginController extends GetxController {
           }
         }).then((value) async {
       debugPrint("value $value ");
-
       await LocalStorage.storeData(
           key: "access_token", value: value["result"]["token"]);
       LocalStorage.storeData(key: "mode", value: 0);
-      await LocalStorage.storeData(
-          key: "user_id", value: value["result"]["user_id"]);
       String toke = await LocalStorage.getStringValue(key: "access_token");
       int userId = await LocalStorage.getIntValue(key: "user_id");
       debugPrint(" $userId");

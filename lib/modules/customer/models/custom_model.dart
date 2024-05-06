@@ -7,7 +7,7 @@ class CustomerList {
   var lat;
   var long;
   var email;
-  var phone;
+  var mobile;
   var customerType;
   var customerStatus;
   var gpsRange;
@@ -21,7 +21,7 @@ class CustomerList {
       this.lat,
       this.long,
       this.email,
-      this.phone,
+      this.mobile,
       this.customerType,
       this.customerStatus,
       this.gpsRange,
@@ -35,7 +35,7 @@ class CustomerList {
     lat = json['lat'];
     long = json['long'];
     email = json['email'];
-    phone = json['phone'];
+    mobile = json['mobile'];
     customerType = json['customer_type'];
     customerStatus = json['customer_status'];
     gpsRange = json['gps_range'];
@@ -51,7 +51,7 @@ class CustomerList {
     data['lat'] = lat;
     data['long'] = long;
     data['email'] = email;
-    data['phone'] = phone;
+    data['mobile'] = mobile;
     data['customer_type'] = customerType;
     data['customer_status'] = customerStatus;
     data['gps_range'] = gpsRange;

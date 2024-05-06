@@ -13,7 +13,7 @@ class OrderController extends GetxController {
   // final saleOrderlist = SaleOrderListModel().obs;
   final isloading = false.obs;
   final deliverDate = ''.obs;
-  final currentPage = 0.obs;
+  final currentPage = 1.obs;
   final lastpage = 0.obs;
 
   Future fetchSaleOrder(int page) async {

@@ -12,17 +12,6 @@ import 'package:sizer/sizer.dart';
 
 import 'modules/bottom_navigetion/screen/buttom_navigetion_screen.dart';
 
-// void getToken() async {
-//   String token = await LocalStorage.getStringValue(key: "access_token");
-//   Future.delayed(const Duration(milliseconds: 100), () {
-//     if (token != '') {
-//       Get.to(() => const HomeScreen());
-//     } else {
-//       Get.to(() => const LoginScreen());
-//     }
-//   });
-// }
-
 final controller = Get.put(HomeController());
 void main() async {
   kkkkk();
@@ -34,7 +23,7 @@ void main() async {
   controller.token.value =
       await LocalStorage.getStringValue(key: "access_token");
   controller.mode.value = await LocalStorage.getIntValue(key: "mode");
-  debugPrint("mode : ${controller.mode.value}");
+  debugPrint("token : ${controller.token.value}");
   runApp(const MyApp());
 }
 

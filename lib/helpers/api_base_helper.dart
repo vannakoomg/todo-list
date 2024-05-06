@@ -35,6 +35,7 @@ class ApiBaseHelper {
   }) async {
     final token = await LocalStorage.getStringValue(key: 'access_token');
     final fullUrl = base == '' ? baseUrl + url : base + url;
+
     Map<String, String> headerDefault = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -70,18 +71,25 @@ class ApiBaseHelper {
         default:
           break;
       }
-    } catch (e) {
-      debugPrint("On catch api $fullUrl");
-      // CustomDialog.info(
-      //   barrierDismissible: false,
-      //   title: "Oops!",
-      //   message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
-      //   // ontap: () async {
-      //   // await LocalStorage.storeData(key: "access_token", value: "");
-      //   // Get.to(LoginScreen());
-      //   // },
-      // );
+    } on DioException catch (e) {
+      debugPrint("value ${e.response!.statusCode}");
+      handleDioError(e.response!.statusCode!);
       return Future.error(e);
+    }
+  }
+
+  void handleDioError(int statusCode) {
+    switch (statusCode) {
+      case 401:
+        CustomDialog.error(
+            barrierDismissible: false,
+            title: "Oops!",
+            message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
+            ontap: () async {
+              await LocalStorage.storeData(key: "access_token", value: "");
+              Get.offAll(() => LoginScreen());
+            });
+        break;
     }
   }
 
@@ -143,3 +151,42 @@ class ApiBaseHelper {
     }
   }
 }
+
+// String _handleDioError(DioException error) {
+//   switch (error.type) {
+//     case DioExceptionType.connectionTimeout:
+//     case DioExceptionType.sendTimeout:
+//     case DioExceptionType.receiveTimeout:
+//       return "Timeout occurred while sending or receiving";
+//     case DioExceptionType.badResponse:
+//       final statusCode = error.response?.statusCode;
+//       if (statusCode != null) {
+//         switch (statusCode) {
+//           case StatusCode.badRequest:
+//             return "Bad Request";
+//           case StatusCode.unauthorized:
+//           case StatusCode.forbidden:
+//             return "Unauthorized";
+//           case StatusCode.notFound:
+//             return "Not Found";
+//           case StatusCode.conflict:
+//             return 'Conflict';
+
+//           case StatusCode.internalServerError:
+//             return "Internal Server Error";
+//         }
+//       }
+//       break;
+//     case DioExceptionType.cancel:
+//       break;
+//     case DioExceptionType.unknown:
+//       return "No Internet Connection";
+//     case DioExceptionType.badCertificate:
+//       return "Internal Server Error";
+//     case DioExceptionType.connectionError:
+//       return "Connection Error";
+//     default:
+//       return "Unknown Error";
+//   }
+//   return "Unknown Error";
+// }

@@ -15,8 +15,9 @@ import '../../todo/screen/map_detail.dart';
 class CustomerController extends GetxController {
   final custom = <CustomerList>[].obs;
   ScrollController scrollController = ScrollController();
-  final currentPage = 0.obs;
+  final currentPage = 1.obs;
   final lastpage = 0.obs;
+
   void fetchCustomer(int page) async {
     isloading.value = true;
     ApiBaseHelper.apiBaseHelper
@@ -144,13 +145,16 @@ class CustomerController extends GetxController {
     )
         .then((value) {
       isloading.value = false;
+      debugPrint("${currentlat.value} ${currentlng.value}");
       custom.insert(
         0,
         CustomerList(
           name: customerName.value,
-          phone: phone.value,
+          mobile: phone.value,
           address: address.value,
           email: gmailAddress.value,
+          lat: currentlat.value,
+          long: currentlng.value,
           customerType: typeName.value,
         ),
       );

@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
 import 'package:googlemap_ui/utils/fuction.dart';

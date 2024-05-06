@@ -65,7 +65,7 @@ class CustomOrderhistory extends StatelessWidget {
                     ),
                   ],
                 ),
-                // const Gap(5),
+                const Gap(5),
                 Row(
                   children: [
                     Text(orderDate,

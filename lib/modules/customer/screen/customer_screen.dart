@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:googlemap_ui/modules/customer/controller/customer_controller.dart';
 import 'package:googlemap_ui/modules/customer/screen/create_customer_screen.dart';
+import 'package:googlemap_ui/modules/todo/controller/check_in_controller.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:googlemap_ui/utils/widgets/csutom_empty.dart';
 import 'package:googlemap_ui/utils/widgets/custom_app.dart';
@@ -20,6 +21,7 @@ class CustomerScreen extends StatefulWidget {
 
 class _CustomerScreenState extends State<CustomerScreen> {
   final controller = Get.put(CustomerController());
+  final checkinController = ChcekinController();
   // ScrollController scrollController = ScrollController();
 
   @override
@@ -27,13 +29,12 @@ class _CustomerScreenState extends State<CustomerScreen> {
     debugPrint("0000000000000");
     controller.fetchCustomer(controller.currentPage.value);
     controller.getCurrentLocation();
-
     controller.scrollController.addListener(() {
       if (controller.scrollController.offset ==
               controller.scrollController.position.maxScrollExtent &&
           controller.currentPage.value < controller.lastpage.value) {
         debugPrint("max ");
-        controller.currentPage.value += 1;
+        controller.currentPage.value = controller.currentPage.value + 1;
         controller.fetchCustomer(controller.currentPage.value);
       }
     });
@@ -66,7 +67,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
                       color: AppColor.secondnaryColor,
                       onRefresh: () async {
                         controller.custom.clear();
-                        controller.currentPage.value = 0;
+                        controller.currentPage.value = 1;
                         controller.fetchCustomer(controller.currentPage.value);
                       },
                       child: Stack(
@@ -77,145 +78,160 @@ class _CustomerScreenState extends State<CustomerScreen> {
                             children: [
                               const Gap(5),
                               ...controller.custom.asMap().entries.map((e) {
-                                return Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        padding: const EdgeInsets.all(15),
-                                        margin: const EdgeInsets.only(),
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurRadius: 30,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondary
-                                                  .withOpacity(0.5),
-                                              spreadRadius: 2,
-                                            )
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "${e.value.name}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall,
-                                            ),
-                                            // const Gap(10),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "${e.value.phone}",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge!
-                                                      .copyWith(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .onSecondary),
-                                                ),
-                                                const Gap(10),
-                                                Expanded(
-                                                  child: Container(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: Text(
-                                                      "${e.value.email}",
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyLarge!
-                                                          .copyWith(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .onSecondary),
+                                return GestureDetector(
+                                  onTap: () {
+                                    debugPrint(
+                                        "value : ${e.value.lat} ${e.value.long}");
+                                    checkinController.showMapDetail(
+                                        context,
+                                        double.parse(e.value.lat.toString()),
+                                        double.parse(e.value.long.toString()),
+                                        controller.address.value);
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          padding: const EdgeInsets.all(15),
+                                          margin: const EdgeInsets.only(),
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 30,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondary
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 2,
+                                              )
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "${e.value.name}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall,
+                                              ),
+                                              const Gap(5),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "${e.value.mobile}",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyLarge!
+                                                        .copyWith(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .onSecondary),
+                                                  ),
+                                                  const Gap(10),
+                                                  Expanded(
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.centerRight,
+                                                      child: Text(
+                                                        "${e.value.email}",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodyLarge!
+                                                            .copyWith(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .onSecondary),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            // const Gap(10),
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.location_on_sharp,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSecondary,
-                                                  size: 18,
-                                                ),
-                                                const Gap(5),
-                                                Text(
-                                                  "${e.value.name}",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall!
-                                                      .copyWith(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .onSecondary),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Positioned(
-                                        right: 0,
-                                        child: Container(
-                                          height: 25,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                            color: e.value.customerType!
-                                                        .toLowerCase() ==
-                                                    "pharmacy"
-                                                ? const Color.fromARGB(
-                                                    255, 247, 152, 184)
-                                                : const Color.fromARGB(
-                                                    255, 105, 182, 246),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              bottomLeft: Radius.circular(40),
-                                              topRight: Radius.circular(30),
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              toTitleCase(e.value.customerType),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall!
-                                                  .copyWith(
-                                                    color: e.value.customerType!
-                                                                .toLowerCase() ==
-                                                            "pharmacy"
-                                                        ? const Color.fromARGB(
-                                                            255, 134, 65, 88)
-                                                        : const Color.fromARGB(
-                                                            255, 39, 74, 103),
+                                                ],
+                                              ),
+                                              const Gap(5),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_on_sharp,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondary,
+                                                    size: 18,
                                                   ),
-                                            ),
+                                                  const Gap(5),
+                                                  Text(
+                                                    "${e.value.name}",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .onSecondary),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      )
-                                    ],
+                                        Positioned(
+                                          right: 0,
+                                          child: Container(
+                                            height: 25,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                              color: e.value.customerType!
+                                                          .toLowerCase() ==
+                                                      "pharmacy"
+                                                  ? const Color.fromARGB(
+                                                      255, 247, 152, 184)
+                                                  : const Color.fromARGB(
+                                                      255, 105, 182, 246),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                bottomLeft: Radius.circular(40),
+                                                topRight: Radius.circular(30),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                toTitleCase(
+                                                    e.value.customerType),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                      color: e.value
+                                                                  .customerType!
+                                                                  .toLowerCase() ==
+                                                              "pharmacy"
+                                                          ? const Color
+                                                              .fromARGB(
+                                                              255, 134, 65, 88)
+                                                          : const Color
+                                                              .fromARGB(
+                                                              255, 39, 74, 103),
+                                                    ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 );
                               }),
@@ -231,7 +247,14 @@ class _CustomerScreenState extends State<CustomerScreen> {
                         ],
                       ),
                     )
-                  : const Center(child: CustomEmpty()),
+                  : Center(
+                      child: GestureDetector(
+                          onTap: () {
+                            controller
+                                .fetchCustomer(controller.currentPage.value);
+                          },
+                          child: const CustomEmpty()),
+                    ),
         ));
   }
 }

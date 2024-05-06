@@ -8,7 +8,6 @@ import 'package:googlemap_ui/helpers/api_base_helper.dart';
 import 'package:googlemap_ui/modules/checkOut/screens/checkout_screen.dart';
 import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart';
 import 'package:googlemap_ui/modules/home_screen/model/sale_model.dart';
-import 'package:googlemap_ui/modules/todo/models/customer_model.dart';
 import 'package:googlemap_ui/modules/todo/screen/map_detail.dart';
 import 'package:googlemap_ui/utils/widgets/custom_alert.dart';
 

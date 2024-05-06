@@ -58,7 +58,7 @@ class CustomDialog {
                               .bodySmall!
                               .copyWith(
                                   color:
-                                      const Color.fromARGB(255, 232, 85, 75)),
+                                      const Color.fromARGB(255, 162, 85, 79)),
                         ),
                         const Gap(20),
                         CustomButtom(
@@ -269,6 +269,7 @@ class CustomDialog {
     Function? ontap,
   }) {
     showDialog(
+      barrierColor: Colors.black.withOpacity(0.2),
       barrierDismissible: barrierDismissible,
       context: ContextUtility.context!,
       builder: (BuildContext context) {
