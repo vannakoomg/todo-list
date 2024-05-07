@@ -29,19 +29,13 @@ class LoginScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset("images/logo.png"),
+                            Image.asset(
+                              "images/logo.png",
+                              height: 200,
+                              width: 200,
+                            ),
                             const SizedBox(
                               height: 20,
-                            ),
-                            Text(
-                              "Sale Activity",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                    fontSize: 32,
-                                    color: AppColor.secondnaryColor,
-                                  ),
                             ),
                             const SizedBox(
                               height: 20,
