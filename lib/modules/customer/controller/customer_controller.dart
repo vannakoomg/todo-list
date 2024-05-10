@@ -27,7 +27,6 @@ class CustomerController extends GetxController {
       isAuthorize: true,
     )
         .then((value) {
-      debugPrint("fetch customer done ${value["data"].length}");
       lastpage.value = value["total_pages"];
       for (int i = 0; i < value["data"].length; ++i) {
         custom.add(CustomerList.fromJson(value["data"][i]));
@@ -169,7 +168,15 @@ class CustomerController extends GetxController {
             clearCustomer();
           });
     }).onError((error, stackTrace) {
-      debugPrint("you have been on error ");
+      CustomDialog.error(
+          barrierDismissible: false,
+          title: "Oops!",
+          message: "SOMETHING WENT PLEASE TRY AGAIN",
+          ontap: () async {
+            Get.back();
+            createCusomter();
+          });
+      debugPrint("you have been on error $error");
     });
   }
 

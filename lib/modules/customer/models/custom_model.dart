@@ -12,6 +12,7 @@ class CustomerList {
   var customerStatus;
   var gpsRange;
   var salesmanId;
+  String? colorCode;
   var salesmanName;
 
   CustomerList(
@@ -20,6 +21,7 @@ class CustomerList {
       this.address,
       this.lat,
       this.long,
+      this.colorCode,
       this.email,
       this.mobile,
       this.customerType,
@@ -35,6 +37,7 @@ class CustomerList {
     lat = json['lat'];
     long = json['long'];
     email = json['email'];
+    colorCode = json['color_code'];
     mobile = json['mobile'];
     customerType = json['customer_type'];
     customerStatus = json['customer_status'];
@@ -49,6 +52,7 @@ class CustomerList {
     data['name'] = name;
     data['address'] = address;
     data['lat'] = lat;
+    data['color_code'] = colorCode;
     data['long'] = long;
     data['email'] = email;
     data['mobile'] = mobile;

@@ -26,14 +26,12 @@ class _CustomerScreenState extends State<CustomerScreen> {
 
   @override
   void initState() {
-    debugPrint("0000000000000");
-    controller.fetchCustomer(controller.currentPage.value);
     controller.getCurrentLocation();
     controller.scrollController.addListener(() {
       if (controller.scrollController.offset ==
               controller.scrollController.position.maxScrollExtent &&
           controller.currentPage.value < controller.lastpage.value) {
-        debugPrint("max ");
+        debugPrint("home ------");
         controller.currentPage.value = controller.currentPage.value + 1;
         controller.fetchCustomer(controller.currentPage.value);
       }
@@ -194,13 +192,10 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                             height: 25,
                                             width: 100,
                                             decoration: BoxDecoration(
-                                              color: e.value.customerType!
-                                                          .toLowerCase() ==
-                                                      "pharmacy"
-                                                  ? const Color.fromARGB(
-                                                      255, 247, 152, 184)
-                                                  : const Color.fromARGB(
-                                                      255, 105, 182, 246),
+                                              color: e.value.colorCode != ""
+                                                  ? Color(int.parse(
+                                                      "0xff${e.value.colorCode}"))
+                                                  : Colors.red,
                                               borderRadius:
                                                   const BorderRadius.only(
                                                 bottomLeft: Radius.circular(40),
@@ -215,16 +210,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                                     .textTheme
                                                     .bodySmall!
                                                     .copyWith(
-                                                      color: e.value
-                                                                  .customerType!
-                                                                  .toLowerCase() ==
-                                                              "pharmacy"
-                                                          ? const Color
-                                                              .fromARGB(
-                                                              255, 134, 65, 88)
-                                                          : const Color
-                                                              .fromARGB(
-                                                              255, 39, 74, 103),
+                                                      color: Colors.black,
                                                     ),
                                               ),
                                             ),

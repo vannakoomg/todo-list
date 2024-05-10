@@ -13,7 +13,6 @@ class CustomLoading extends StatelessWidget {
       height: 50,
       width: 50,
       decoration: const BoxDecoration(
-        // color: ,
         shape: BoxShape.circle,
       ),
       child: Center(

@@ -8,6 +8,7 @@ class ActivityController extends GetxController {
   final isloading = false.obs;
   final activity = ActivityModel().obs;
   Future fetchActivityDetail(int id) async {
+    debugPrint("id = $id");
     isloading.value = true;
     ApiBaseHelper.apiBaseHelper
         .onNetworkRequesting(

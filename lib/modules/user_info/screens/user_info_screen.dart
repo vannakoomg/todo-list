@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:googlemap_ui/modules/customer/controller/customer_controller.dart';
 import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart';
+import 'package:googlemap_ui/modules/order/controller/order_controller.dart';
 import 'package:googlemap_ui/modules/user_info/screens/change_password_screen.dart';
 import 'package:googlemap_ui/utils/widgets/custom_image_base64.dart';
 import 'package:googlemap_ui/utils/widgets/custom_loading.dart';
@@ -18,6 +20,8 @@ class UserInfoScreen extends StatefulWidget {
 
 class _UserInfoScreenState extends State<UserInfoScreen> {
   final controller = Get.put(HomeController());
+  final custommerController = Get.put(CustomerController());
+  final ordercontroller = Get.put(OrderController());
 
   @override
   void initState() {
@@ -175,6 +179,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                     ),
                     GestureDetector(
                       onTap: () async {
+                        custommerController.custom.clear();
+                        ordercontroller.order.clear();
                         await LocalStorage.storeData(
                             key: "access_token", value: "");
                         Get.offAll(() => LoginScreen());

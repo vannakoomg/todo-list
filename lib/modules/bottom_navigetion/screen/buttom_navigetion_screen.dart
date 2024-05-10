@@ -61,23 +61,52 @@ class _BottomNavigetionScreenState extends State<BottomNavigetionScreen> {
                   return Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        // debugPrint("kk ${controller.index.value}");
-
-                        if (e.key == 2 && controller.index.value == 2) {
-                          customController.scrollController.animateTo(
-                            0,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.ease,
-                          );
-                        }
-                        if (e.key == 1 && controller.index.value == 1) {
-                          orderController.scrollController.animateTo(
-                            0,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.ease,
-                          );
-                        }
                         controller.index.value = e.key;
+                        if (controller.index.value == 2) {
+                          if (customController.custom.isEmpty) {
+                            customController.fetchCustomer(
+                                customController.currentPage.value);
+                          }
+                          // if (e.key == 2) {
+                          //   if (customController.scrollController.offset == 0) {
+                          //     customController.currentPage.value = 1;
+                          //     customController.custom.clear();
+                          //     customController.fetchCustomer(
+                          //         customController.currentPage.value);
+                          //   } else {
+                          //     customController.scrollController.animateTo(
+                          //       0,
+                          //       duration: const Duration(milliseconds: 500),
+                          //       curve: Curves.ease,
+                          //     );
+                          //   }
+                          // }
+                        }
+                        if (controller.index.value == 1) {
+                          debugPrint("${orderController.order.length}");
+                          if (orderController.order.isEmpty) {
+                            debugPrint("fetching order ===>");
+                            orderController.fetchSaleOrder(
+                                orderController.currentPage.value);
+                          }
+                          if (e.key == 1) {
+                            debugPrint(
+                                "possss${orderController.position.value}");
+                            if (orderController.position.value >= 0) {
+                              // orderController.scrollController.animateTo(
+                              //   0,
+                              //   duration: const Duration(milliseconds: 500),
+                              //   curve: Curves.ease,
+                              // );
+                            } else {
+                              // debugPrint("onthis ");
+                              // orderController.order.clear();
+                              // orderController.currentPage.value = 1;
+                              // orderController.fetchSaleOrder(
+                              //     orderController.currentPage.value);
+                            }
+                          }
+                        }
                       },
                       child: Container(
                         color: Colors.transparent,

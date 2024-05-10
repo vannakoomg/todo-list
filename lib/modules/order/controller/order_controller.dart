@@ -9,6 +9,7 @@ import '../models/sale_order_list_model.dart';
 
 class OrderController extends GetxController {
   ScrollController scrollController = ScrollController();
+  final position = 0.0.obs;
   final order = <SaleOrderModel>[].obs;
   // final saleOrderlist = SaleOrderListModel().obs;
   final isloading = false.obs;
@@ -26,7 +27,6 @@ class OrderController extends GetxController {
     )
         .then((value) {
       // saleOrderlist.value = SaleOrderListModel.fromJson(value);
-      debugPrint("fetch customer done ${value["data"].length}");
       lastpage.value = value["total_pages"];
       for (int i = 0; i < value["data"].length; ++i) {
         order.add(SaleOrderModel.fromJson(value["data"][i]));

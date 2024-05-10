@@ -33,6 +33,7 @@ class SaleOrderModel {
   String? partnerName;
   double? amount;
   String? status;
+  String? statusValue;
   int? deliveryAddressId;
   String? deliveryAddress;
 
@@ -45,12 +46,14 @@ class SaleOrderModel {
       this.partnerName,
       this.amount,
       this.status,
+      this.statusValue,
       this.deliveryAddressId,
       this.deliveryAddress});
 
   SaleOrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    statusValue = json['status_value'];
     partnerId = json['partner_id'];
     dateOrder = json['date_order'];
     deliveryDate = json['delivery_date'];
@@ -65,6 +68,7 @@ class SaleOrderModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
+    data['status_value'] = statusValue;
     data['partner_id'] = partnerId;
     data['date_order'] = dateOrder;
     data['delivery_date'] = deliveryDate;

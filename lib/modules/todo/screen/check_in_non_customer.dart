@@ -57,7 +57,7 @@ class _CheckInNonCustomerScreenState extends State<CheckInNonCustomerScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Shop Name",
+                                "Customer Name",
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                               const SizedBox(

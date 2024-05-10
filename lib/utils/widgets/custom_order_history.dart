@@ -110,13 +110,13 @@ class CustomOrderhistory extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: status == "draft"
+                          color: status == "Quotation"
                               ? const Color.fromARGB(255, 199, 198, 198)
-                              : status == "sent"
+                              : status == "Quotation Sent"
                                   ? const Color.fromARGB(255, 113, 187, 247)
-                                  : status == "sale"
+                                  : status == "Sales Order"
                                       ? const Color.fromARGB(255, 238, 181, 95)
-                                      : status == "done"
+                                      : status == "Locked"
                                           ? const Color.fromARGB(
                                               255, 72, 170, 85)
                                           : const Color.fromARGB(
@@ -130,20 +130,19 @@ class CustomOrderhistory extends StatelessWidget {
                                 .textTheme
                                 .bodyMedium!
                                 .copyWith(
-                                  color: status == "draft"
-                                      ? const Color.fromARGB(255, 84, 84, 84)
-                                      : status == "sent"
-                                          ? const Color.fromARGB(
-                                              255, 22, 93, 150)
-                                          : status == "sale"
-                                              ? const Color.fromARGB(
-                                                  255, 150, 101, 28)
-                                              : status == "done"
-                                                  ? const Color.fromARGB(
-                                                      255, 7, 121, 34)
-                                                  : const Color.fromARGB(
-                                                      255, 115, 17, 10),
-                                ),
+                                    color: status == "Quotation"
+                                        ? const Color.fromARGB(255, 84, 84, 84)
+                                        : status == "Quotation Sent"
+                                            ? const Color.fromARGB(
+                                                255, 22, 93, 150)
+                                            : status == "Sales Order"
+                                                ? const Color.fromARGB(
+                                                    255, 150, 101, 28)
+                                                : status == "Locked"
+                                                    ? const Color.fromARGB(
+                                                        255, 7, 121, 34)
+                                                    : const Color.fromARGB(
+                                                        255, 115, 17, 10)),
                           ),
                         ),
                       )

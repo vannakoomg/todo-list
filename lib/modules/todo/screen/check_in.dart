@@ -60,7 +60,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Shop Name",
+                              "Customer Name",
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                             const Gap(5),

@@ -40,7 +40,7 @@ class LoginController extends GetxController {
       debugPrint(" $userId");
       debugPrint(" $toke");
       isloading.value = false;
-      Get.to(() => const BottomNavigetionScreen());
+      Get.offAll(() => const BottomNavigetionScreen());
     }).onError((error, stackTrace) {
       isloading.value = false;
       CustomDialog.error(

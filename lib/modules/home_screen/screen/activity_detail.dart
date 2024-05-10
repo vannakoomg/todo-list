@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:googlemap_ui/config/const/app_colors.dart';
 import 'package:googlemap_ui/modules/home_screen/controller/activity_controller.dart';
@@ -69,6 +70,21 @@ class _ReportCheckOutState extends State<ReportCheckOut> {
                             const SizedBox(
                               height: 20,
                             ),
+                            Text(
+                              "Customer Name",
+                              style: Theme.of(context).textTheme.titleSmall!,
+                            ),
+                            Text(
+                              "${controller.activity.value.customerName}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                            ),
+                            const Gap(20),
                             Text(
                               "Remark",
                               style: Theme.of(context).textTheme.titleSmall!,

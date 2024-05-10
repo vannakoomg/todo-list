@@ -27,12 +27,11 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   void initState() {
     // controller.fetchSaleOrder();
-    controller.fetchSaleOrder(controller.currentPage.value);
     controller.scrollController.addListener(() {
+      controller.position.value = controller.scrollController.offset;
       if (controller.scrollController.offset ==
               controller.scrollController.position.maxScrollExtent &&
           controller.currentPage.value < controller.lastpage.value) {
-        debugPrint("max ");
         controller.currentPage.value += 1;
         controller.fetchSaleOrder(controller.currentPage.value);
       }
@@ -89,10 +88,10 @@ class _OrderScreenState extends State<OrderScreen> {
 
                                         Get.to(() => OrderDetailScreen(
                                               id: e.value.id!,
-                                              status: "${e.value.status}",
+                                              status: "${e.value.statusValue}",
                                             ));
                                       },
-                                      status: "${e.value.status}",
+                                      status: "${e.value.statusValue}",
                                       price: "${e.value.amount}",
                                       name: "${e.value.partnerName}",
                                       deliverAddress:
@@ -124,10 +123,10 @@ class _OrderScreenState extends State<OrderScreen> {
                                             e.key;
                                         Get.to(() => OrderDetailScreen(
                                               id: e.value.id!,
-                                              status: "${e.value.status}",
+                                              status: "${e.value.statusValue}",
                                             ));
                                       },
-                                      status: "${e.value.status}",
+                                      status: "${e.value.statusValue}",
                                       price: "${e.value.amount}",
                                       name: "${e.value.partnerName}",
                                       deliverAddress:

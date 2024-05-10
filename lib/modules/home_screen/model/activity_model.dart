@@ -5,12 +5,14 @@ class ActivityModel {
   String? remark;
   String? photoLat;
   String? photoLong;
+  String? customerName;
   bool? hasOrder;
   String? photo;
 
   ActivityModel(
       {this.checkOutDate,
       this.todoDate,
+      this.customerName,
       this.checkInDate,
       this.remark,
       this.photoLat,
@@ -27,6 +29,7 @@ class ActivityModel {
     photoLong = json['photo_long'];
     hasOrder = json['has_order'];
     photo = json['photo'];
+    customerName = json['customer_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +40,7 @@ class ActivityModel {
     data['remark'] = remark;
     data['photo_lat'] = photoLat;
     data['photo_long'] = photoLong;
+    data['customer_name'] = customerName;
     data['has_order'] = hasOrder;
     data['photo'] = photo;
     return data;

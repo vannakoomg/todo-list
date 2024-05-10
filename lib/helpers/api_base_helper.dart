@@ -89,6 +89,7 @@ class ApiBaseHelper {
               await LocalStorage.storeData(key: "access_token", value: "");
               Get.offAll(() => LoginScreen());
             });
+
         break;
     }
   }
