@@ -32,7 +32,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     child: const Icon(Icons.close_rounded))
                 : leading
             : null,
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor:
+            Theme.of(context).colorScheme.onTertiary.withOpacity(0.5),
         // centerTitle: true,
         title: Text(title, style: Theme.of(context).textTheme.titleLarge!
             // .copyWith(color: Theme.of(context).colorScheme.tertiary),

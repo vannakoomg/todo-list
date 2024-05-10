@@ -16,7 +16,8 @@ class CustomAppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: Theme.of(context).colorScheme.onTertiary.withOpacity(0.5),
       height: 40,
       width: double.infinity,
       child: Row(

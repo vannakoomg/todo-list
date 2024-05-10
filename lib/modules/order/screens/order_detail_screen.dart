@@ -60,7 +60,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   child: Column(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(left: 10, right: 10),
+                        margin:
+                            const EdgeInsets.only(left: 10, right: 10, top: 10),
                         child: Column(
                           children: [
                             Row(

@@ -47,7 +47,8 @@ class _BottomNavigetionScreenState extends State<BottomNavigetionScreen> {
           ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color:
+                    Theme.of(context).colorScheme.onTertiary.withOpacity(0.5),
                 border: Border(
                   top: BorderSide(
                     width: 0.5,
