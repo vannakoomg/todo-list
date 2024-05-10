@@ -46,14 +46,14 @@ class CustomTodoCard extends StatelessWidget {
                   customer,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.onSecondary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                 ),
                 Row(
                   children: [
                     Icon(
                       Icons.location_on_sharp,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       size: 18,
                     ),
                     const Gap(5),
@@ -61,7 +61,7 @@ class CustomTodoCard extends StatelessWidget {
                       address == "" ? "NA" : address,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.onSecondary,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                     ),
                   ],
@@ -72,11 +72,11 @@ class CustomTodoCard extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: stuts == "todo"
-                  ? Colors.grey
+                  ? const Color.fromARGB(255, 137, 137, 137)
                   : stuts == "check-in"
-                      ? const Color.fromARGB(255, 113, 187, 247)
+                      ? const Color.fromARGB(255, 72, 141, 197)
                       : stuts == "check-out"
-                          ? const Color.fromARGB(255, 238, 181, 95)
+                          ? const Color.fromARGB(255, 193, 148, 82)
                           : AppColor.success,
               borderRadius: BorderRadius.circular(15),
             ),
@@ -84,13 +84,7 @@ class CustomTodoCard extends StatelessWidget {
             child: Text(
               toTitleCase(stuts),
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: stuts == "todo"
-                        ? const Color.fromARGB(255, 59, 58, 58)
-                        : stuts == "check-in"
-                            ? const Color.fromARGB(255, 14, 51, 82)
-                            : stuts == "check-out"
-                                ? const Color.fromARGB(255, 118, 82, 33)
-                                : AppColor.success,
+                    color: Colors.white,
                   ),
             ),
           ),
