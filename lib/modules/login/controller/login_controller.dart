@@ -13,6 +13,7 @@ class LoginController extends GetxController {
   final userNameText = TextEditingController().obs;
   final passWordText = TextEditingController().obs;
   final isloading = false.obs;
+  final hidePassWord = true.obs;
   Future login(BuildContext context) async {
     unFocus();
     isloading.value = true;
@@ -34,12 +35,11 @@ class LoginController extends GetxController {
       debugPrint("value $value ");
       await LocalStorage.storeData(
           key: "access_token", value: value["result"]["token"]);
-      LocalStorage.storeData(key: "mode", value: 0);
-      String toke = await LocalStorage.getStringValue(key: "access_token");
-      int userId = await LocalStorage.getIntValue(key: "user_id");
-      debugPrint(" $userId");
-      debugPrint(" $toke");
+      await LocalStorage.storeData(key: "mode", value: 0);
+      await LocalStorage.storeData(key: "email", value: userName.value);
       isloading.value = false;
+      passWordText.value.text = "";
+      passWord.value = "";
       Get.offAll(() => const BottomNavigetionScreen());
     }).onError((error, stackTrace) {
       isloading.value = false;

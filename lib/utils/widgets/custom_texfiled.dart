@@ -7,6 +7,7 @@ class CustomTextfiled extends StatelessWidget {
   final Function? onChanged;
   final int maxLines;
   final bool readOnly;
+  final bool obscureText;
   final FocusNode? focusNode;
   final TextInputType keyboardType;
   final int maxLength;
@@ -15,12 +16,14 @@ class CustomTextfiled extends StatelessWidget {
   final Widget suffixIcon;
   final TextAlign textAlign;
   final bool autofocus;
+  final Function? ontapsuffixIcon;
   final List<TextInputFormatter>? inputFormatters;
   const CustomTextfiled({
     super.key,
     required this.controller,
     required this.hintText,
     this.focusNode,
+    this.obscureText = false,
     this.fillColor,
     this.onChanged,
     this.textAlign = TextAlign.left,
@@ -28,6 +31,7 @@ class CustomTextfiled extends StatelessWidget {
     this.autofocus = false,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
+    this.ontapsuffixIcon,
     this.inputFormatters,
     this.suffixIcon = const SizedBox(),
     this.readOnly = false,
@@ -51,6 +55,8 @@ class CustomTextfiled extends StatelessWidget {
           onChanged!(value);
         }
       },
+      obscureText: obscureText,
+      obscuringCharacter: "*",
       decoration: InputDecoration(
         fillColor: fillColor ?? Theme.of(context).colorScheme.onTertiary,
         filled: true,
@@ -70,9 +76,16 @@ class CustomTextfiled extends StatelessWidget {
             color: borderColor ?? Theme.of(context).colorScheme.onSecondary,
           ),
         ),
-        suffixIcon: Container(
-          padding: const EdgeInsets.only(right: 10),
-          child: suffixIcon,
+        suffixIcon: GestureDetector(
+          onTap: () {
+            if (ontapsuffixIcon != null) {
+              ontapsuffixIcon!();
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.only(right: 10),
+            child: suffixIcon,
+          ),
         ),
         suffixIconConstraints: const BoxConstraints(
           maxHeight: 25,

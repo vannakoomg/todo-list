@@ -183,7 +183,11 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                         ordercontroller.order.clear();
                         await LocalStorage.storeData(
                             key: "access_token", value: "");
-                        Get.offAll(() => LoginScreen());
+                        String name =
+                            await LocalStorage.getStringValue(key: "email");
+                        Get.offAll(() => LoginScreen(
+                              userName: name,
+                            ));
                       },
                       child: Container(
                         padding: const EdgeInsets.only(left: 20),

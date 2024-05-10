@@ -6,10 +6,26 @@ import 'package:googlemap_ui/utils/widgets/custom_texfiled.dart';
 
 import '../../../config/const/app_colors.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  final String userName;
+  const LoginScreen({
+    super.key,
+    this.userName = "",
+  });
 
-  final controller = LoginController();
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final controller = Get.put(LoginController());
+  @override
+  void initState() {
+    controller.userName.value = widget.userName;
+    controller.userNameText.value.text = widget.userName;
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +47,8 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             Image.asset(
                               "images/logo.png",
-                              height: 200,
-                              width: 200,
+                              height: 150,
+                              width: 150,
                             ),
                             const SizedBox(
                               height: 20,
@@ -71,12 +87,19 @@ class LoginScreen extends StatelessWidget {
                                   height: 10,
                                 ),
                                 CustomTextfiled(
+                                  obscureText: controller.hidePassWord.value,
+                                  ontapsuffixIcon: () {
+                                    controller.hidePassWord.value =
+                                        !controller.hidePassWord.value;
+                                  },
                                   controller: controller.passWordText.value,
                                   hintText: "Enter Password",
                                   onChanged: (value) {
                                     controller.passWord.value = value;
                                   },
-                                  suffixIcon: const Icon(Icons.remove_red_eye),
+                                  suffixIcon: !controller.hidePassWord.value
+                                      ? const Icon(Icons.visibility)
+                                      : const Icon(Icons.visibility_off),
                                 ),
                               ],
                             ),
