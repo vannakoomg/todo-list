@@ -4,6 +4,7 @@ import 'package:googlemap_ui/modules/order/controller/create_order_controller.da
 import 'package:googlemap_ui/modules/order/controller/order_controller.dart';
 import 'package:googlemap_ui/modules/order/screens/create_order_screen.dart';
 import 'package:googlemap_ui/modules/order/screens/order_detail_screen.dart';
+import 'package:googlemap_ui/utils/widgets/csutom_empty.dart';
 import 'package:googlemap_ui/utils/widgets/custom_app.dart';
 import 'package:googlemap_ui/utils/widgets/custom_buttom.dart';
 import 'package:googlemap_ui/utils/widgets/custom_loading.dart';
@@ -148,9 +149,13 @@ class _OrderScreenState extends State<OrderScreen> {
                       )
                   ],
                 )
-              : CustomOops(ontap: () {
-                  controller.fetchSaleOrder(controller.currentPage.value);
-                })),
+              : const Center(
+                  child: CustomEmpty(
+                      // ontap: () {
+                      //   controller.fetchSaleOrder(controller.currentPage.value);
+                      // },
+                      ),
+                )),
     );
   }
 }

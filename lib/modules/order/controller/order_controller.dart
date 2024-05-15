@@ -31,6 +31,8 @@ class OrderController extends GetxController {
       for (int i = 0; i < value["data"].length; ++i) {
         order.add(SaleOrderModel.fromJson(value["data"][i]));
       }
+      debugPrint("order get from api  ${order.length}");
+
       isloading.value = false;
     }).onError((error, stackTrace) {
       isloading.value = false;

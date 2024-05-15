@@ -5,8 +5,15 @@ class CustomEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "No Data",
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          "No Data",
+        ),
+        // Icon(Icons.data)
+      ],
     );
   }
 }
