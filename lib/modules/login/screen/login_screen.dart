@@ -68,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: 10,
                                 ),
                                 CustomTextfiled(
+                                  keyboardType: TextInputType.emailAddress,
                                   controller: controller.userNameText.value,
                                   hintText: "Enter User Name",
                                   onChanged: (value) {

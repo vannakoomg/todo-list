@@ -340,7 +340,7 @@ class _CreateOrderScreemState extends State<CreateOrderScreem> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Quanity",
+                                    "Qty",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
