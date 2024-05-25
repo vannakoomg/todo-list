@@ -36,7 +36,7 @@ class SelectUrlScreen extends StatelessWidget {
                   CustomButtom(
                     disble: controller.url.value == "" ? true : false,
                     white: double.infinity,
-                    title: "SUBMIT",
+                    title: "NEXT",
                     onTap: () {
                       controller.submitUrl();
                     },
