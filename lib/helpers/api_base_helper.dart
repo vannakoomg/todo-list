@@ -34,6 +34,8 @@ class ApiBaseHelper {
     String base = '',
   }) async {
     final token = await LocalStorage.getStringValue(key: 'access_token');
+    final baseUrl = await LocalStorage.getStringValue(key: 'baseUrl');
+    debugPrint(baseUrl);
     final fullUrl = base == '' ? baseUrl + url : base + url;
 
     Map<String, String> headerDefault = {
@@ -87,7 +89,7 @@ class ApiBaseHelper {
             message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
             ontap: () async {
               await LocalStorage.storeData(key: "access_token", value: "");
-              Get.offAll(() => LoginScreen());
+              Get.offAll(() => const LoginScreen());
             });
 
         break;
@@ -117,7 +119,7 @@ class ApiBaseHelper {
             message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
             ontap: () async {
               await LocalStorage.storeData(key: "access_token", value: "");
-              Get.to(LoginScreen());
+              Get.to(const LoginScreen());
             });
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));
@@ -128,7 +130,7 @@ class ApiBaseHelper {
             message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
             ontap: () async {
               await LocalStorage.storeData(key: "access_token", value: "");
-              Get.to(LoginScreen());
+              Get.to(const LoginScreen());
             });
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));
@@ -139,7 +141,7 @@ class ApiBaseHelper {
             message: "SOMETHING WENT WRONG WITH YOUR ACCOUNT PLEASE TRY AGAIN",
             ontap: () async {
               await LocalStorage.storeData(key: "access_token", value: "");
-              Get.to(LoginScreen());
+              Get.to(const LoginScreen());
             });
         return Future.error(ErrorModel(
             statusCode: response.statusCode, bodyString: response.data!));

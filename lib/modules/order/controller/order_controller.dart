@@ -32,11 +32,9 @@ class OrderController extends GetxController {
         order.add(SaleOrderModel.fromJson(value["data"][i]));
       }
       debugPrint("order get from api  ${order.length}");
-
       isloading.value = false;
     }).onError((error, stackTrace) {
       isloading.value = false;
-
       debugPrint("fetch sale order history errooror $error");
     });
   }

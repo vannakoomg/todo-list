@@ -6,6 +6,7 @@ import 'package:googlemap_ui/config/themes/themes.dart';
 import 'package:googlemap_ui/helpers/local_storage.dart';
 import 'package:googlemap_ui/modules/home_screen/controller/home_controller.dart';
 import 'package:googlemap_ui/modules/login/screen/login_screen.dart';
+import 'package:googlemap_ui/modules/select_url/screens/select_url.dart';
 import 'package:googlemap_ui/utils/context_unitity.dart';
 import 'package:googlemap_ui/utils/fuction.dart';
 import 'package:sizer/sizer.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
                 // theme: darkMode,
                 theme: controller.mode.value == 0 ? lightMode : darkMode,
                 home: controller.token.value == ""
-                    ? LoginScreen()
+                    ? const SelectUrlScreen()
                     : const BottomNavigetionScreen(),
               ),
             ));

@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           body: Obx(
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onChanged: (value) {
                                     controller.userName.value = value;
                                   },
-                                  suffixIcon: const Icon(Icons.person),
+                                  suffixIcon: const Icon(Icons.person_4),
                                 ),
                                 const SizedBox(
                                   height: 20,

@@ -306,17 +306,17 @@ class CustomDialog {
                                   color: const Color.fromARGB(255, 14, 96, 162),
                                   fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          message,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  color:
-                                      const Color.fromARGB(255, 25, 117, 192)),
-                        ),
-                        const Gap(20),
+                        if (message != "")
+                          Text(
+                            message,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    color: const Color.fromARGB(
+                                        255, 25, 117, 192)),
+                          ),
                         CustomButtom(
                           height: 30,
                           white: 100,
