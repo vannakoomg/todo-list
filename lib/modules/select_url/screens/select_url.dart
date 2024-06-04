@@ -11,10 +11,10 @@ class SelectUrlScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SelectUrlController());
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Obx(() => Container(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: Obx(() => SafeArea(
+            child: Container(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -43,8 +43,8 @@ class SelectUrlScreen extends StatelessWidget {
                   )
                 ],
               ),
-            )),
-      ),
+            ),
+          )),
     );
   }
 }
